@@ -4,8 +4,8 @@
 
 Network Working Group                                        B. Trammell
 Internet-Draft                                                ETH Zurich
-Intended status: Informational                         November 07, 2017
-Expires: May 11, 2018
+Intended status: Informational                         November 12, 2017
+Expires: May 16, 2018
 
 
                    Optional Security Is Not An Option
@@ -30,7 +30,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 11, 2018.
+   This Internet-Draft will expire on May 16, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Trammell                  Expires May 11, 2018                  [Page 1]
+Trammell                  Expires May 16, 2018                  [Page 1]
 
 Internet-Draft              optional-security              November 2017
 
@@ -64,12 +64,12 @@ Table of Contents
    2.  Problem statement . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Case studies  . . . . . . . . . . . . . . . . . . . . . . . .   3
      3.1.  DNSSEC  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.2.  BGPsec  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Discussion and guidelines . . . . . . . . . . . . . . . . . .   3
+     3.2.  BGPsec  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Discussion and guidelines . . . . . . . . . . . . . . . . . .   4
    5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
    6.  Informative References  . . . . . . . . . . . . . . . . . . .   4
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   5
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Trammell                  Expires May 11, 2018                  [Page 2]
+Trammell                  Expires May 16, 2018                  [Page 2]
 
 Internet-Draft              optional-security              November 2017
 
@@ -139,12 +139,36 @@ Internet-Draft              optional-security              November 2017
    incidence of misconfiguration (high Q), in an environment where the
    attack models addressed by the extension are naturally rare (low P).
 
+   This is not a novel observation; a similar phenomenon following from
+   the base-rate fallacy has been studied in the literature on
+   operational security, where the false positive and true positive
+   rates for intrusion detection systems have a similar effect on the
+   applicability of these systems.  Axelsson showed [Axelsson99] that
+   the false positive rate must be held extremely low, on the order of 1
+   in 100,000, for the probability of an intrusion given an alarm to be
+   worth the effort of further investigation.
+
 3.  Case studies
+
+   Here we examine three optional security extensions, DNSSEC [RFC4033],
+   BGPSEC [RFC8205], and the addition of TLS to HTTP/1.1 [RFC2818], to
+   see how the relationship of P and Q has affected their deployment.
 
 3.1.  DNSSEC
 
-   [EDITOR'S NOTE: write me, cite IMC17 paper (and earlier work)
-   measuring deployment.]
+   [EDITOR'S NOTE: see
+   https://www.internetsociety.org/resources/doc/2016/state-of-dnssec-
+   deployment-2016/]
+
+   [EDITOR'S NOTE: cite IMC17 paper (and earlier work) measuring
+   deployment.]
+
+
+
+Trammell                  Expires May 16, 2018                  [Page 3]
+
+Internet-Draft              optional-security              November 2017
+
 
 3.2.  BGPsec
 
@@ -163,13 +187,6 @@ Internet-Draft              optional-security              November 2017
    certificates to zero and the effort (and therefore misconfiguration
    incidence Q) to epsilon. ]
 
-
-
-Trammell                  Expires May 11, 2018                  [Page 3]
-
-Internet-Draft              optional-security              November 2017
-
-
 5.  Acknowledgments
 
    Many thanks to Peter Hessler, Geoff Huston, and Roland van Rijswijk
@@ -186,9 +203,36 @@ Internet-Draft              optional-security              November 2017
 
 6.  Informative References
 
+   [Axelsson99]
+              Axelsson, S., "The Base-Rate Fallacy and its Implications
+              for the Difficulty of Intrusion Detection (in ACM CCS
+              1999)", n.d., <http://www.raid-
+              symposium.org/raid99/PAPERS/Axelsson.pdf>.
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
+              DOI 10.17487/RFC2818, May 2000,
+              <https://www.rfc-editor.org/info/rfc2818>.
+
+   [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "DNS Security Introduction and Requirements",
+              RFC 4033, DOI 10.17487/RFC4033, March 2005,
+              <https://www.rfc-editor.org/info/rfc4033>.
+
+
+
+
+Trammell                  Expires May 16, 2018                  [Page 4]
+
+Internet-Draft              optional-security              November 2017
+
+
    [RFC8170]  Thaler, D., Ed., "Planning for Protocol Adoption and
               Subsequent Transitions", RFC 8170, DOI 10.17487/RFC8170,
               May 2017, <https://www.rfc-editor.org/info/rfc8170>.
+
+   [RFC8205]  Lepinski, M., Ed. and K. Sriram, Ed., "BGPsec Protocol
+              Specification", RFC 8205, DOI 10.17487/RFC8205, September
+              2017, <https://www.rfc-editor.org/info/rfc8205>.
 
 Author's Address
 
@@ -221,4 +265,16 @@ Author's Address
 
 
 
-Trammell                  Expires May 11, 2018                  [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+Trammell                  Expires May 16, 2018                  [Page 5]

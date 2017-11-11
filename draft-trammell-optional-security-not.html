@@ -292,7 +292,7 @@ address {
 
   <meta name="dct.creator" content="Trammell, B." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-trammell-optional-security-not" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-11-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-11-12" />
   <meta name="dct.abstract" content="write me" />
   <meta name="description" content="write me" />
 
@@ -313,10 +313,10 @@ address {
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
-<td class="right">November 07, 2017</td>
+<td class="right">November 12, 2017</td>
 </tr>
 <tr>
-<td class="left">Expires: May 11, 2018</td>
+<td class="left">Expires: May 16, 2018</td>
 <td class="right"></td>
 </tr>
 
@@ -333,7 +333,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 11, 2018.</p>
+<p>This Internet-Draft will expire on May 16, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -385,13 +385,16 @@ address {
 </ol>
 <p id="rfc.section.2.p.3">Moving from no deployment of an optional security extension to full deployment is a protocol transition as described in <a href="#RFC8170" class="xref">[RFC8170]</a>. We posit that the implicit transition plans for these protocols have generally suffered from an underestimation of a disincentive (section 5.2) linked to the relationship between P and Q for any given protocol.</p>
 <p id="rfc.section.2.p.4">Specifically, if Q is much greater than P, then any user of an optional security extension will face an overwhelming incentive to disable that extension, as the cost of dealing with spuriously failing operations becomes greater than the cost of dealing with relatively rare successful attacks. This incentive becomes stronger when the cause of the false positive is someone else&#8217;s problem; i.e. not a misconfiguration the user can possibly fix. This situation can arise when poor design, documentation, or tool support elevates the incidence of misconfiguration (high Q), in an environment where the attack models addressed by the extension are naturally rare (low P).</p>
+<p id="rfc.section.2.p.5">This is not a novel observation; a similar phenomenon following from the base-rate fallacy has been studied in the literature on operational security, where the false positive and true positive rates for intrusion detection systems have a similar effect on the applicability of these systems. Axelsson showed <a href="#Axelsson99" class="xref">[Axelsson99]</a> that the false positive rate must be held extremely low, on the order of 1 in 100,000, for the probability of an intrusion given an alarm to be worth the effort of further investigation.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#case-studies" id="case-studies">Case studies</a>
 </h1>
+<p id="rfc.section.3.p.1">Here we examine three optional security extensions, DNSSEC <a href="#RFC4033" class="xref">[RFC4033]</a>, BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a>, and the addition of TLS to HTTP/1.1 <a href="#RFC2818" class="xref">[RFC2818]</a>, to see how the relationship of P and Q has affected their deployment.</p>
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> <a href="#dnssec" id="dnssec">DNSSEC</a>
 </h1>
-<p id="rfc.section.3.1.p.1">[EDITOR&#8217;S NOTE: write me, cite IMC17 paper (and earlier work) measuring deployment.]</p>
+<p id="rfc.section.3.1.p.1">[EDITOR&#8217;S NOTE: see https://www.internetsociety.org/resources/doc/2016/state-of-dnssec-deployment-2016/]</p>
+<p id="rfc.section.3.1.p.2">[EDITOR&#8217;S NOTE: cite IMC17 paper (and earlier work) measuring deployment.]</p>
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#bgpsec" id="bgpsec">BGPsec</a>
 </h1>
@@ -411,11 +414,33 @@ address {
 <p id="rfc.section.5.p.2">This work is partially supported by the European Commission under Horizon 2020 grant agreement no. 688421 Measurement and Architecture for a Middleboxed Internet (MAMI), and by the Swiss State Secretariat for Education, Research, and Innovation under contract no. 15.0268. This support does not imply endorsement.</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">6.</a> Informative References</h1>
-<table><tbody><tr>
+<table><tbody>
+<tr>
+<td class="reference"><b id="Axelsson99">[Axelsson99]</b></td>
+<td class="top">
+<a>Axelsson, S.</a>, "<a href="http://www.raid-symposium.org/raid99/PAPERS/Axelsson.pdf">The Base-Rate Fallacy and its Implications for the Difficulty of Intrusion Detection (in ACM CCS 1999)</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2818">[RFC2818]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>", RFC 2818, DOI 10.17487/RFC2818, May 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4033">[RFC4033]</b></td>
+<td class="top">
+<a>Arends, R.</a>, <a>Austein, R.</a>, <a>Larson, M.</a>, <a>Massey, D.</a> and <a>S. Rose</a>, "<a href="https://tools.ietf.org/html/rfc4033">DNS Security Introduction and Requirements</a>", RFC 4033, DOI 10.17487/RFC4033, March 2005.</td>
+</tr>
+<tr>
 <td class="reference"><b id="RFC8170">[RFC8170]</b></td>
 <td class="top">
 <a>Thaler, D.</a>, "<a href="https://tools.ietf.org/html/rfc8170">Planning for Protocol Adoption and Subsequent Transitions</a>", RFC 8170, DOI 10.17487/RFC8170, May 2017.</td>
-</tr></tbody></table>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8205">[RFC8205]</b></td>
+<td class="top">
+<a>Lepinski, M.</a> and <a>K. Sriram</a>, "<a href="https://tools.ietf.org/html/rfc8205">BGPsec Protocol Specification</a>", RFC 8205, DOI 10.17487/RFC8205, September 2017.</td>
+</tr>
+</tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
