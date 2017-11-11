@@ -24,7 +24,12 @@ author:
 normative:
 
 informative:
-
+  Axelsson99:
+    author:
+      -
+        ins: S. Axelsson
+    title: The Base-Rate Fallacy and its Implications for the Difficulty of Intrusion Detection (in ACM CCS 1999)
+    target: http://www.raid-symposium.org/raid99/PAPERS/Axelsson.pdf
 
 --- abstract
 
@@ -41,7 +46,7 @@ protocols to provide confidentiality, integrity, and authenticity for those
 protocols, in a legal environment where cryptographic technology was largely
 protected by restricted licensing and/or prohibited by law. The result has
 been a protocol stack where security properties have been added to core
-protocols using those protocol's extension mechanisms. 
+protocols using those protocol's extension mechanisms.
 
 As extension mechanisms are by design optional features of a protocol, this
 has led to a situation where security is optional up and down the protocol
@@ -83,11 +88,25 @@ situation can arise when poor design, documentation, or tool support elevates
 the incidence of misconfiguration (high Q), in an environment where the attack
 models addressed by the extension are naturally rare (low P).
 
+This is not a novel observation; a similar phenomenon following from the
+base-rate fallacy has been studied in the literature on operational security,
+where the false positive and true positive rates for intrusion detection
+systems have a similar effect on the applicability of these systems. Axelsson
+showed {{Axelsson99}} that the false positive rate must be held extremely low,
+on the order of 1 in 100,000, for the probability of an intrusion given an
+alarm to be worth the effort of further investigation.
+
 # Case studies
+
+Here we examine three optional security extensions, DNSSEC {{?RFC4033}},
+BGPSEC {{?RFC8205}}, and the addition of TLS to HTTP/1.1 {{?RFC2818}}, to see how
+the relationship of P and Q has affected their deployment.
 
 ## DNSSEC
 
-\[EDITOR'S NOTE: write me, cite IMC17 paper (and earlier work) measuring deployment.]
+\[EDITOR'S NOTE: see https://www.internetsociety.org/resources/doc/2016/state-of-dnssec-deployment-2016/]
+
+\[EDITOR'S NOTE: cite IMC17 paper (and earlier work) measuring deployment.]
 
 ## BGPsec
 
@@ -98,7 +117,7 @@ models addressed by the extension are naturally rare (low P).
 \[EDITOR'S NOTE: write me, this is so far a partial success story but has required coordinated
 effort up and down the stack.]
 
-# Discussion and guidelines 
+# Discussion and guidelines
 
 \[EDITOR'S NOTE: write me. the inertia here is severe but can be mitigated. through external
 distortion of incentives; i.e. paying people to turn DNSSEC on seems to work,
