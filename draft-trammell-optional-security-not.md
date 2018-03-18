@@ -17,7 +17,7 @@ author:
     name: Brian Trammell
     org: ETH Zurich
     email: ietf@trammell.ch
-    street: Gloriastrasse 35
+    street: Universitatstrasse 6
     city: 8092 Zurich
     country: Switzerland
 
@@ -30,10 +30,72 @@ informative:
         ins: S. Axelsson
     title: The Base-Rate Fallacy and its Implications for the Difficulty of Intrusion Detection (in ACM CCS 1999)
     target: http://www.raid-symposium.org/raid99/PAPERS/Axelsson.pdf
-
+    date: 1999
+  Lychev13:
+    author:
+      -
+        ins: R. Lychev
+      -
+        ins: S. Goldberg
+      -
+        ins: M. Schapira
+    title: BGP Security in Partial Deployment - Is the Squeeze Worth the Juice? (in SIGCOMM 2013)
+    target: https://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p171.pdf
+    date: 2013
+  Gilad17:
+    author:
+      -
+        ins: Y. Gilad
+      -
+        ins: A. Cohen
+      -
+        ins: A. Herzberg
+      -
+        ins: M. Schapira
+      -
+        ins: H. Schulman
+    title: Are We There Yet? On RPKI’s Deployment and Security (in NDSS 2017)
+    target: https://www.ndss-symposium.org/ndss2017/ndss-2017-programme/are-we-there-yet-rpkis-deployment-and-security/
+    date: 2017-11
+  Chung17:
+    author:
+      -
+        ins: T. Chung
+      -
+        ins: R. van Rijswijk-Deij
+      -
+        ins: D. Choffnes
+      -
+        ins: D. Levin
+      -
+        ins: B. Maggs
+      -
+        ins: A. Mislove
+      -
+        ins: C. Wilson
+    title: Understanding the Role of Registrars in DNSSEC Deployment
+    target: https://conferences.sigcomm.org/imc/2017/papers/imc17-final53.pdf
+    date: 2017-11
+  DNSSEC-DEPLOYMENT:
+    author:
+      -
+        ins: Internet Society
+    title: State of DNSSEC Deployment 2016
+    target: https://www.internetsociety.org/resources/doc/2016/state-of-dnssec-deployment-2016/
+    date: 2016-12
+  IAB-CONFIDENTIALITY:
+    author:
+      -
+        ins: Internet Architecture Board
+    title: IAB Statement on Internet Confidentiality
+    target: https://www.iab.org/2014/11/14/iab-statement-on-internet-confidentiality/
+    date: 2014-11
 --- abstract
 
-write me
+This document explores the common properties of optional security protocols
+and extensions, and notes that due to the base-rate fallacy and general issues
+with coordinated deployment of protocols under uncertain incentives, optional
+security protocols have proven difficult to deploy in practice.
 
 --- middle
 
@@ -96,37 +158,116 @@ showed {{Axelsson99}} that the false positive rate must be held extremely low,
 on the order of 1 in 100,000, for the probability of an intrusion given an
 alarm to be worth the effort of further investigation.
 
+Indeed, the situation is even worse than this. Experience with operational
+security monitoring indicates that when Q is high enough, even true positives
+P may be treated as "in the way".
+
 # Case studies
 
-Here we examine three optional security extensions, DNSSEC {{?RFC4033}},
-BGPSEC {{?RFC8205}}, and the addition of TLS to HTTP/1.1 {{?RFC2818}}, to see how
-the relationship of P and Q has affected their deployment.
+Here we examine four optional security extensions,  BGPSEC {{?RFC8205}}, RPKI
+{{?RFC6810}}, DNSSEC {{?RFC4033}}, and the addition of TLS to HTTP/1.1
+{{?RFC2818}}, to see how the relationship of P and Q has affected their
+deployment.
+
+## Routing security: BGPSEC and RPKI
+
+The Border Gateway Protocol {{?RFC4271}} (BGP) is used to propagate
+interdomain routing information in the Internet. Its original design has no
+integrity protection at all, either on a hop-by-hop or on an end-to-end basis.
+In the meantime, the TCP Authentication Option {{?RFC5925}} (and MD5
+authentication {{?RFC2385}}, which it replaces) have been deployed to add
+hop-by-hop integrity protection.
+
+End-to-end protection of the integrity of BGP announcements is protected by
+two complementary approaches. Route announcements in BGP updates protected by
+BGPSEC {{?RFC8205}} have the property that the every Autonomous System (AS) on
+the path of ASes listed in the UPDATE message has explicitly authorized the
+advertisement of the route to the subsequent AS in the path. RPKI {{?RFC6810}}
+protects prefixes, granting the right to advertise a prefix (i.e., be the
+first AS in the AS path) to a specific AS. RPKI serves as a trust root for
+BGPSEC, as well.
+
+These approaches are not yet universally deployed. BGP route origin
+authentication approaches provide little benefit to individual deployers until
+it is almost universally deployed {{Lychev13}}. RPKI route origin validation
+is similarly deployed in about 15% of the Internet core; two thirds of these
+networks only assign lower preference to non-validating announcements. This
+indicates significant caution with respect to RPKI mistakes {{Gilad17}}. In
+both cases the lack of incentives for each independent deployment, including
+the false positive risk, greatly reduces the speed of incremental deployment
+and the chance of a successful transition {{?RFC8170}}.
 
 ## DNSSEC
 
-\[EDITOR'S NOTE: see https://www.internetsociety.org/resources/doc/2016/state-of-dnssec-deployment-2016/]
+The Domain Name System (DNS) {{?RFC1035}} provides a distributed protocol for
+the mapping of Internet domain names to information about those names. As
+originally specified, an answer to a DNS query was considered authoritative if
+it came from an authoritative server, which does not allow for authentication
+of information in the DNS. DNS Security {{?RFC4033}} remedies this through an
+extension, allowing DNS resource records to be signed using keys linked to
+zones, also distributed via DNS. A name can be authenticated if every level of
+the DNS hierarchy from the root up to the zone containing the name is signed.
 
-\[EDITOR'S NOTE: cite IMC17 paper (and earlier work) measuring deployment.]
+The root zone of the DNS has been signed since 2010. As of 2016, 89% of TLD
+zones were also signed. However, the deployment status of DNSSEC for
+second-level domains (SLDs) varies wildly from region to region and is
+generally poor: only about 1% of .com, .net. and .org SLDs are properly signed
+{{DNSSEC-DEPLOYMENT}}. Chung et al found recently that second-level domain
+adoption was linked incentives for deployment: TLDs which provided direct
+financial incentives to SLDs for having correctly signed DNS zones tend to
+have much higher deployment {{Chung17}}.
 
-## BGPsec
-
-\[EDITOR'S NOTE: find citations and write me.]
+However, the base-rate effect tends to reduce the use of DNSSEC validating
+resolvers, which remains below 15% of Internet clients {{DNSSEC-DEPLOYMENT}}.
 
 ## HTTP over TLS
 
-\[EDITOR'S NOTE: write me, this is so far a partial success story but has required coordinated
-effort up and down the stack.]
+Security was added to the Web via HTTPS, running HTTP over TLS over TCP, in
+the 1990s {{?RFC2818}}. Deployment of HTTPS crossed 50% of web traffic in
+2017, due to accelerated deployment in the wake of the Snowden revelations in
+2013, and increased confidentiality of Web content delivery was considered
+useful to address the attacker model laid out in {{?RFC7624}}.
+
+Base-rate effects didn't hinder the deployment of HTTPS per se; however, until
+recently, warnings about less-safe HTTPS configurations (e.g. self-signed
+certificates) were less forceful due to the prevalence of these
+configurations. The reduction of misconfigurations and the cost of obtaining
+certificates with basic authentication checks through automation
+{{?I-D.ietf-acme-acme}} has been a major force in improving Web security.
+
+The ubiquitous deployment of HTTPS is a rare, eventual success story in the
+deployment of an optional security mechanism. We note that each endpoint
+deciding to use HTTPS saw an immediate benefit, which indicates good chances
+of success for incremental deployment. However, the acceleration of deployment
+since 2013 is the result of the coordinated effort of actors throughout the
+Web application and operations stack, unified around a particular event (the
+Snowden relevations) which provided a "call to arms".
 
 # Discussion and guidelines
 
-\[EDITOR'S NOTE: write me. the inertia here is severe but can be mitigated. through external
-distortion of incentives; i.e. paying people to turn DNSSEC on seems to work,
-as does reducing the cost of certificates to zero and the effort (and
-therefore misconfiguration incidence Q) to epsilon. ]
+It has been necessary for all new protocol work in the IETF to consider
+security since 2003 {{?RFC3552}}, and the Internet Architecture Board
+recommended that all new protocol work provide confidentiality by default in
+2014 {{IAB-CONFIDENTIALITY}}; new protocols should therefore already not rely on
+optional extensions to provide security guarantees for their own operations or
+for their users.
+
+In many cases in the running Internet, the ship has sailed: it is not at this
+point realistic to replace protocols relying on optional features for security
+with new, secure protocols: while these full replacements are less susceptible
+to base-rate effects, they have the same misaligned incentives to deploy. In
+these cases, we note that there are, however, some small reasons for hope:
+
+- When natural incentives are not enough to overcome base-rate effects,
+  external incentives (such as financial incentives) have been shown to be
+  effective to motivate single deployment decisions.
+- Efforts to automate configuration of security protocols, and thereby reduce
+  the incidence of misconfiguration Q, also has a positive impact on
+  deployability.
 
 # Acknowledgments
 
-Many thanks to  Peter Hessler, Geoff Huston, and Roland van Rijswijk for
+Many thanks to Peter Hessler, Geoff Huston, and Roland van Rijswijk-Deij for
 conversations leading to the problem statement presented in this document. The
 title shamelessly riffs off that of Berkeley tech report about IP options
 written by Rodrigo Fonseca et al., via a paper at IMC 2017 by Brian Goodchild
