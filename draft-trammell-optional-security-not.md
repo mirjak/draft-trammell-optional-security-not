@@ -104,11 +104,11 @@ security protocols have proven difficult to deploy in practice.
 Many of the protocols that make up the Internet architecture were designed and
 first implemented in an envrionment of mutual trust among network engineers,
 operators, and users, on computers that were incapable of using cryptographic
-protocols to provide confidentiality, integrity, and authenticity for those
-protocols, in a legal environment where cryptographic technology was largely
-protected by restricted licensing and/or prohibited by law. The result has
-been a protocol stack where security properties have been added to core
-protocols using those protocol's extension mechanisms.
+protection of confidentiality, integrity, and authenticity for those protocols,
+in a legal environment where the distribution of cryptographic technology was
+largely restricted by licensing and/or prohibited by law. The result has been a
+protocol stack where security properties have been added to core protocols using
+those protocols' extension mechanisms.
 
 As extension mechanisms are by design optional features of a protocol, this
 has led to a situation where security is optional up and down the protocol
@@ -137,18 +137,18 @@ Consider an optional security extension with the following properties:
 Moving from no deployment of an optional security extension to full deployment
 is a protocol transition as described in {{?RFC8170}}. We posit that the
 implicit transition plans for these protocols have generally suffered from an
-underestimation of a disincentive (section 5.2) linked to the relationship
-between P and Q for any given protocol.
+underestimation of the disincentive (as in section 5.2 of {{RFC8170}}) linked to
+the relationship between P and Q for any given protocol.
 
-Specifically, if Q is much greater than P, then any user of an optional
-security extension will face an overwhelming incentive to disable that
-extension, as the cost of dealing with spuriously failing operations becomes
-greater than the cost of dealing with relatively rare successful attacks. This
-incentive becomes stronger when the cause of the false positive is someone
-else's problem; i.e. not a misconfiguration the user can possibly fix. This
-situation can arise when poor design, documentation, or tool support elevates
-the incidence of misconfiguration (high Q), in an environment where the attack
-models addressed by the extension are naturally rare (low P).
+Specifically, if Q is much greater than P, then any user of an optional security
+extension will face an overwhelming incentive to disable that extension, as the
+cost of dealing with spuriously failing operations overwhelms the cost of
+dealing with relatively rare successful attacks. This incentive becomes stronger
+when the cause of the false positive is someone else's problem; i.e. not a
+misconfiguration the user can possibly fix. This situation can arise when poor
+design, documentation, or tool support elevates the incidence of
+misconfiguration (high Q), in an environment where the attack models addressed
+by the extension are naturally rare (low P).
 
 This is not a novel observation; a similar phenomenon following from the
 base-rate fallacy has been studied in the literature on operational security,
@@ -167,7 +167,9 @@ P may be treated as "in the way".
 Here we examine four optional security extensions,  BGPSEC {{?RFC8205}}, RPKI
 {{?RFC6810}}, DNSSEC {{?RFC4033}}, and the addition of TLS to HTTP/1.1
 {{?RFC2818}}, to see how the relationship of P and Q has affected their
-deployment.
+deployment. We note that perfect deployment of the these three extensions --
+securing routing, naming, and end-to-end transport (at least for the Web
+platform) -- would represent completely "securing" the Internet architecture.
 
 ## Routing security: BGPSEC and RPKI
 
@@ -197,6 +199,8 @@ both cases the lack of incentives for each independent deployment, including
 the false positive risk, greatly reduces the speed of incremental deployment
 and the chance of a successful transition {{?RFC8170}}.
 
+\[EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing BGP?]
+
 ## DNSSEC
 
 The Domain Name System (DNS) {{?RFC1035}} provides a distributed protocol for
@@ -219,6 +223,13 @@ have much higher deployment {{Chung17}}.
 
 However, the base-rate effect tends to reduce the use of DNSSEC validating
 resolvers, which remains below 15% of Internet clients {{DNSSEC-DEPLOYMENT}}.
+
+DNSSEC deployment is hindered by other obstacles, as well. For the Web platform,
+for instance, DNSSEC is not percieved as having much utility, given the
+deployment of TLS and the assurances provided by the Web PKI (on which, see
+{{http-over-tls}}): a connection intercepted due to a poisoned DNS cache would
+fail to authenticate unless the attacker also obtained a valid certificate from
+the name, rendering DNS interception less useful.
 
 ## HTTP over TLS
 
@@ -243,7 +254,9 @@ since 2013 is the result of the coordinated effort of actors throughout the
 Web application and operations stack, unified around a particular event (the
 Snowden relevations) which provided a "call to arms".
 
-# Discussion and guidelines
+\[EDITOR'S NOTE: see issue #2]
+
+# Discussion and Recommendations
 
 It has been necessary for all new protocol work in the IETF to consider
 security since 2003 {{?RFC3552}}, and the Internet Architecture Board
@@ -254,9 +267,12 @@ for their users.
 
 In many cases in the running Internet, the ship has sailed: it is not at this
 point realistic to replace protocols relying on optional features for security
-with new, secure protocols: while these full replacements are less susceptible
-to base-rate effects, they have the same misaligned incentives to deploy. In
-these cases, we note that there are, however, some small reasons for hope:
+with new, secure protocols. While these full replacements would be less
+susceptible to base-rate effects, they have the same misaligned incentives to
+deploy.
+
+However, an examination of our case studies does suggest incremental steps
+toward improving the current situation:
 
 - When natural incentives are not enough to overcome base-rate effects,
   external incentives (such as financial incentives) have been shown to be
@@ -265,13 +281,17 @@ these cases, we note that there are, however, some small reasons for hope:
   the incidence of misconfiguration Q, also has a positive impact on
   deployability.
 
+\[EDITOR'S NOTE: does the rise of DV certificates point to a need for defense in
+depth?]
+
 # Acknowledgments
 
 Many thanks to Peter Hessler, Geoff Huston, and Roland van Rijswijk-Deij for
-conversations leading to the problem statement presented in this document. The
-title shamelessly riffs off that of Berkeley tech report about IP options
-written by Rodrigo Fonseca et al., via a paper at IMC 2017 by Brian Goodchild
-et al.
+conversations leading to the problem statement presented in this document.
+Thanks to Martin Thomson for his feedback on the document itself, which has
+greatly improved subsequent versions. The title shamelessly riffs off that of
+Berkeley tech report about IP options written by Rodrigo Fonseca et al., via a
+paper at IMC 2017 by Brian Goodchild et al.
 
 This work is partially supported by the European Commission under Horizon 2020
 grant agreement no. 688421 Measurement and Architecture for a Middleboxed
