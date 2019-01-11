@@ -167,9 +167,13 @@ P may be treated as "in the way".
 Here we examine four optional security extensions,  BGPSEC {{?RFC8205}}, RPKI
 {{?RFC6810}}, DNSSEC {{?RFC4033}}, and the addition of TLS to HTTP/1.1
 {{?RFC2818}}, to see how the relationship of P and Q has affected their
-deployment. We note that perfect deployment of the these three extensions --
-securing routing, naming, and end-to-end transport (at least for the Web
-platform) -- would represent completely "securing" the Internet architecture.
+deployment. 
+
+We choose these examples as all four are examples are optional security, and
+that perfect deployment of the associated extensions -- securing the routing
+control plane, the Internet naming system, and end-to-end transport (at least
+for the Web platform) -- would represent completely "securing" the Internet
+architecture at layers 3 and 4.
 
 ## Routing security: BGPSEC and RPKI
 
@@ -199,7 +203,8 @@ both cases the lack of incentives for each independent deployment, including
 the false positive risk, greatly reduces the speed of incremental deployment
 and the chance of a successful transition {{?RFC8170}}.
 
-\[EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing BGP?]
+\[EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing BGP?
+reduction of expressivity?]
 
 ## DNSSEC
 
@@ -224,12 +229,19 @@ have much higher deployment {{Chung17}}.
 However, the base-rate effect tends to reduce the use of DNSSEC validating
 resolvers, which remains below 15% of Internet clients {{DNSSEC-DEPLOYMENT}}.
 
-DNSSEC deployment is hindered by other obstacles, as well. For the Web platform,
-for instance, DNSSEC is not percieved as having much utility, given the
-deployment of TLS and the assurances provided by the Web PKI (on which, see
-{{http-over-tls}}): a connection intercepted due to a poisoned DNS cache would
-fail to authenticate unless the attacker also obtained a valid certificate from
-the name, rendering DNS interception less useful.
+DNSSEC deployment is hindered by other obstacles, as well. Since the organic
+growth of DNS software predates even TCP/IP, even EDNS, the foundational
+extension upon which DNSSEC is built are not universally deployed, which
+inflates Q. The current DNS Flag Day effort (see https://dnsflagday.net) aims to
+remedy this by purposely breaking backward interoperability with servers that
+are not EDNS-capable in a coordinated way.
+
+In addition, for the Web platform at least, DNSSEC is not percieved as having
+essential utility, given the deployment of TLS and the assurances provided by
+the Web PKI (on which, see {{http-over-tls}}). A connection intercepted due to a
+poisoned DNS cache would fail to authenticate unless the attacker also obtained
+a valid certificate from the name, rendering DNS interception less useful, in
+effect, reducing P.
 
 ## HTTP over TLS
 
@@ -254,7 +266,7 @@ since 2013 is the result of the coordinated effort of actors throughout the
 Web application and operations stack, unified around a particular event (the
 Snowden relevations) which provided a "call to arms".
 
-\[EDITOR'S NOTE: see issue #2]
+\[EDITOR'S NOTE: address #2]
 
 # Discussion and Recommendations
 
