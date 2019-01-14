@@ -90,6 +90,20 @@ informative:
     title: IAB Statement on Internet Confidentiality
     target: https://www.iab.org/2014/11/14/iab-statement-on-internet-confidentiality/
     date: 2014-11
+  LetsEncrypt:
+    author:
+      -
+        ins: J. Aas
+    title:
+      Looking Forward to 2019 (Let's Encrypt blog post)
+    target: https://letsencrypt.org/2018/12/31/looking-forward-to-2019.html
+  Google:
+    author:
+      -
+        ins: E. Schechter
+    title:
+      A milestone for Chrome security - marking HTTP as "not secure:
+    target: https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/
 --- abstract
 
 This document explores the common properties of optional security protocols
@@ -219,12 +233,14 @@ the DNS hierarchy from the root up to the zone containing the name is signed.
 
 The root zone of the DNS has been signed since 2010. As of 2016, 89% of TLD
 zones were also signed. However, the deployment status of DNSSEC for
-second-level domains (SLDs) varies wildly from region to region and is
-generally poor: only about 1% of .com, .net. and .org SLDs are properly signed
+second-level domains (SLDs) varies wildly from region to region and is generally
+poor: only about 1% of .com, .net. and .org SLDs were properly signed
 {{DNSSEC-DEPLOYMENT}}. Chung et al found recently that second-level domain
 adoption was linked incentives for deployment: TLDs which provided direct
-financial incentives to SLDs for having correctly signed DNS zones tend to
-have much higher deployment {{Chung17}}.
+financial incentives to SLDs for having correctly signed DNS zones tend to have
+much higher deployment, though these incentives must be carefully designed to
+ensure that they measure correct deployment, as opposed to more easily-gamed
+indirect metrics {{Chung17}}.
 
 However, the base-rate effect tends to reduce the use of DNSSEC validating
 resolvers, which remains below 15% of Internet clients {{DNSSEC-DEPLOYMENT}}.
@@ -234,7 +250,8 @@ growth of DNS software predates even TCP/IP, even EDNS, the foundational
 extension upon which DNSSEC is built are not universally deployed, which
 inflates Q. The current DNS Flag Day effort (see https://dnsflagday.net) aims to
 remedy this by purposely breaking backward interoperability with servers that
-are not EDNS-capable in a coordinated way.
+are not EDNS-capable, by coordinating action among DNS software developers and
+vendors.
 
 In addition, for the Web platform at least, DNSSEC is not percieved as having
 essential utility, given the deployment of TLS and the assurances provided by
@@ -247,26 +264,48 @@ effect, reducing P.
 
 Security was added to the Web via HTTPS, running HTTP over TLS over TCP, in
 the 1990s {{?RFC2818}}. Deployment of HTTPS crossed 50% of web traffic in
-2017, due to accelerated deployment in the wake of the Snowden revelations in
-2013, and increased confidentiality of Web content delivery was considered
-useful to address the attacker model laid out in {{?RFC7624}}.
+2017.
 
 Base-rate effects didn't hinder the deployment of HTTPS per se; however, until
 recently, warnings about less-safe HTTPS configurations (e.g. self-signed
-certificates) were less forceful due to the prevalence of these
-configurations. The reduction of misconfigurations and the cost of obtaining
-certificates with basic authentication checks through automation
-{{?I-D.ietf-acme-acme}} has been a major force in improving Web security.
+certificates, obsolete versions of SSL/TLS, old ciphersuites, etc.) were less
+forceful due to the prevalence of these configurations. As with DNS Flag Day,
+making changes to browser user interfaces that inform the user of low-security
+configurations is facilitated by coordination among browser developers. If one
+browser moves alone to start displaying warnings or refusing to connect to sites
+with less-safe or unsafe configurations, then users will tend to percieve the
+safer browser as more broken, as websites that used to work don't anymore: i.e.,
+non-coordinated action can lead to the false perception that an increase in P is
+an increase in Q (see, e.g. {{Google}}).
 
-The ubiquitous deployment of HTTPS is a rare, eventual success story in the
-deployment of an optional security mechanism. We note that each endpoint
-deciding to use HTTPS saw an immediate benefit, which indicates good chances
-of success for incremental deployment. However, the acceleration of deployment
-since 2013 is the result of the coordinated effort of actors throughout the
-Web application and operations stack, unified around a particular event (the
-Snowden relevations) which provided a "call to arms".
+The Automated Certificate Management Environment {{?ACME=I-D.ietf-acme-acme}}
+has further accelerated the deployment of HTTPS on the server side, by
+drastically reducing the effort required to properly manage server certificates,
+reducing Q by making configuration easier than misconfiguration. Let's Encrypt
+leverages ACME to make it possible to offer certificates at scale for no cost
+with automated validation, issuing 90 million active certificates protecting 150
+million domain names in December 2018 {{LetsEncrypt}}.
 
-\[EDITOR'S NOTE: address #2]
+Deployment of HTTPS accelerated in the wake of the Snowden revelations. Here,
+the perception of the utility of HTTPS has changed. Increasing confidentiality
+of Web traffic for openly-available content was widely seen as not worth the
+cost and effort prior to these revelations. However, as it became clear that the
+attacker model laid out in {{?RFC7624}} was a realistic one, content providers
+and browser vendors put the effort in to increase implementation and deployment.
+
+The ubiquitous deployment of HTTPS is not yet complete; however, all indications
+are that it will represent a rare eventual success story in the ubiquitous
+deployment of an optional security extention. What can we learn from this
+success? We note that each endpoint deciding to use HTTPS saw an immediate
+benefit, which is an indicator of good chances of success for incremental
+deployment {{RFC8170}}. However, the acceleration of deployment since 2013 is
+the result of the coordinated effort of actors throughout the Web application
+and operations stack, unified around a particular event which acted as a call to
+arms. While there are downsides to market consolidation, the relative
+consolidation of the browser market has made coordinated action to change user
+interfaces possible, as well as making it possible to launch a new certificate
+authority (by adding its issuer to the trusted roots of a relatively small
+number of browsers) from nothing in a short period of time.
 
 # Discussion and Recommendations
 
@@ -289,12 +328,13 @@ toward improving the current situation:
 - When natural incentives are not enough to overcome base-rate effects,
   external incentives (such as financial incentives) have been shown to be
   effective to motivate single deployment decisions.
+- While "flag days" are difficult to arrange in the current Internet,
+  coordinated action among multiple actors in a market (e.g. DNS resolvers or
+  web browsers) can reduce the risk that temporary breakage due to the
+  deployment of new security protocols is perceived as an error.
 - Efforts to automate configuration of security protocols, and thereby reduce
-  the incidence of misconfiguration Q, also has a positive impact on
+  the incidence of misconfiguration Q, has a positive impact on
   deployability.
-
-\[EDITOR'S NOTE: does the rise of DV certificates point to a need for defense in
-depth?]
 
 # Acknowledgments
 
