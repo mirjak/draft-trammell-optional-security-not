@@ -1,0 +1,100 @@
+[
+
+  {
+    "url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/2",
+    "repository_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not",
+    "labels_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/2/labels{/name}",
+    "comments_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/2/comments",
+    "events_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/2/events",
+    "html_url": "https://github.com/britram/draft-trammell-optional-security-not/issues/2",
+    "id": 320695644,
+    "node_id": "MDU6SXNzdWUzMjA2OTU2NDQ=",
+    "number": 2,
+    "title": "Look closer at forcing functions",
+    "user": {
+      "login": "martinthomson",
+      "id": 67641,
+      "node_id": "MDQ6VXNlcjY3NjQx",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/67641?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/martinthomson",
+      "html_url": "https://github.com/martinthomson",
+      "followers_url": "https://api.github.com/users/martinthomson/followers",
+      "following_url": "https://api.github.com/users/martinthomson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/martinthomson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/martinthomson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/martinthomson/subscriptions",
+      "organizations_url": "https://api.github.com/users/martinthomson/orgs",
+      "repos_url": "https://api.github.com/users/martinthomson/repos",
+      "events_url": "https://api.github.com/users/martinthomson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/martinthomson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 2,
+    "created_at": "2018-05-07T07:03:57Z",
+    "updated_at": "2019-01-14T10:05:15Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "You mention paying people to deploy DNSSEC.  You might want to look closer at similar things that drove the \"success\" of HTTPS.\r\n\r\nThe success of HTTPS is in no small part to several concurrent forcing functions:\r\n\r\n* Tampering - Whether it be the NSA, ISPs, or enterprises that concerns you, using encryption to avoid \"assistance\" and interference from intermediaries has provided strong incentive to encrypt.  I have LOTS of examples I could help with, but you probably don't need them.\r\n\r\n* Interventions - Google in particular has made some non-trivial changes that motivate the use of HTTPS.  Foremost being their decision to penalize the PageRank of sites that don't offer HTTPS.  The efforts of browsers to penalize cleartext use might have had some effect here as well - browsers are withholding features from sites that don't encrypt.\r\n\r\nThere are a bunch of other factors, not the least being the huge amount of effort invested in removing barriers.  Let's Encrypt is probably the most notable here, not so much by smashing the cost-in-dollars, but by providing a common platform for enrollment and certificate acquisition, which addressed the operational costs.\r\n\r\nI would also be cautious in declaring victory.  HTTPS adoption looks good from the perspective of big sites and browser metrics, but until you can type \"example.com\" into a browser and have it interpret that as \"https://example.com/\" and expect that to work - with HSTS - then I don't consider HTTPS to have won."
+  },
+  {
+    "url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/1",
+    "repository_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not",
+    "labels_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/1/labels{/name}",
+    "comments_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/1/comments",
+    "events_url": "https://api.github.com/repos/britram/draft-trammell-optional-security-not/issues/1/events",
+    "html_url": "https://github.com/britram/draft-trammell-optional-security-not/issues/1",
+    "id": 320692760,
+    "node_id": "MDU6SXNzdWUzMjA2OTI3NjA=",
+    "number": 1,
+    "title": "DNSSEC and usage communities",
+    "user": {
+      "login": "martinthomson",
+      "id": 67641,
+      "node_id": "MDQ6VXNlcjY3NjQx",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/67641?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/martinthomson",
+      "html_url": "https://github.com/martinthomson",
+      "followers_url": "https://api.github.com/users/martinthomson/followers",
+      "following_url": "https://api.github.com/users/martinthomson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/martinthomson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/martinthomson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/martinthomson/subscriptions",
+      "organizations_url": "https://api.github.com/users/martinthomson/orgs",
+      "repos_url": "https://api.github.com/users/martinthomson/repos",
+      "events_url": "https://api.github.com/users/martinthomson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/martinthomson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2018-05-07T06:50:53Z",
+    "updated_at": "2018-05-07T06:50:53Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "DNSSEC has been a flop as far as the web/HTTP community is considered.  You can read all about [the reasons](https://www.imperialviolet.org/2015/01/17/notdane.html).\r\n\r\nThat is definitely not the case for email.  Mail critically depends on DNS for its security.  And in that world, DNSSEC (and DANE) have a much more plausible story.  DNSSEC remains the most plausible technique that exists for securing MX records**.  \r\n\r\nI suspect that we'll see this sort of pattern emerge with other security mechanisms.  They will gain traction for some uses, but not others, and more silos will emerge.\r\n\r\nI raise this not because I have a specific suggestion, but more to point out that the situation with DNSSEC is a little more nuanced than the current draft implies.\r\n\r\n** This MX problem wouldn't exist if, like with HTTP, mail servers were expected to present a certificate valid for their customers domains, but the accepted practice is to only offer certificates for your own domain.  On the other hand, that requirement is why CDNs are enthusiastic about [secondary certificates](https://httpwg.org/http-extensions/draft-ietf-httpbis-http2-secondary-certs.html); no such mechanism is required for mail."
+  }
+
+]
