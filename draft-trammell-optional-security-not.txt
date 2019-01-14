@@ -9,7 +9,7 @@ Expires: July 18, 2019
 
 
                    Optional Security Is Not An Option
-                  draft-trammell-optional-security-not
+              draft-trammell-optional-security-not-latest
 
 Abstract
 
