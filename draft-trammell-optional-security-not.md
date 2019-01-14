@@ -90,20 +90,31 @@ informative:
     title: IAB Statement on Internet Confidentiality
     target: https://www.iab.org/2014/11/14/iab-statement-on-internet-confidentiality/
     date: 2014-11
-  LetsEncrypt:
+  LetsEncrypt2019:
     author:
       -
         ins: J. Aas
     title:
       Looking Forward to 2019 (Let's Encrypt blog post)
     target: https://letsencrypt.org/2018/12/31/looking-forward-to-2019.html
-  Google:
+    date: 2018-12-31
+  ChromeHTTPS:
     author:
       -
         ins: E. Schechter
     title:
-      A milestone for Chrome security - marking HTTP as "not secure:
+      A milestone for Chrome security - marking HTTP as "not secure" (Google blog post):
     target: https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/
+    date: 2018-07-24
+  SecureContexts:
+    author:
+      -
+        ins: A. van Kesteren
+    title:
+      Secure Contexts Everywhere
+    target: https://blog.mozilla.org/security/2018/01/15/secure-contexts-everywhere/
+    date: 2018-01-15
+
 --- abstract
 
 This document explores the common properties of optional security protocols
@@ -183,11 +194,11 @@ Here we examine four optional security extensions,  BGPSEC {{?RFC8205}}, RPKI
 {{?RFC2818}}, to see how the relationship of P and Q has affected their
 deployment. 
 
-We choose these examples as all four are examples are optional security, and
-that perfect deployment of the associated extensions -- securing the routing
-control plane, the Internet naming system, and end-to-end transport (at least
-for the Web platform) -- would represent completely "securing" the Internet
-architecture at layers 3 and 4.
+We choose these examples as all four represent optional security, and that
+perfect deployment of the associated extensions -- securing the routing control
+plane, the Internet naming system, and end-to-end transport (at least for the
+Web platform) -- would represent completely "securing" the Internet architecture
+at layers 3 and 4.
 
 ## Routing security: BGPSEC and RPKI
 
@@ -207,18 +218,22 @@ protects prefixes, granting the right to advertise a prefix (i.e., be the
 first AS in the AS path) to a specific AS. RPKI serves as a trust root for
 BGPSEC, as well.
 
-These approaches are not yet universally deployed. BGP route origin
+These approaches are not (yet) universally deployed. BGP route origin
 authentication approaches provide little benefit to individual deployers until
-it is almost universally deployed {{Lychev13}}. RPKI route origin validation
-is similarly deployed in about 15% of the Internet core; two thirds of these
+it is almost universally deployed {{Lychev13}}. RPKI route origin validation is
+similarly deployed in about 15% of the Internet core; two thirds of these
 networks only assign lower preference to non-validating announcements. This
-indicates significant caution with respect to RPKI mistakes {{Gilad17}}. In
-both cases the lack of incentives for each independent deployment, including
-the false positive risk, greatly reduces the speed of incremental deployment
-and the chance of a successful transition {{?RFC8170}}.
+indicates significant caution with respect to RPKI mistakes {{Gilad17}}. In both
+cases the lack of incentives for each independent deployment, including the
+false positive risk, greatly reduces the speed of incremental deployment and the
+chance of a successful transition {{?RFC8170}}.
 
-\[EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing BGP?
-reduction of expressivity?]
+In addition, the perception of security as a secondary concern for interdomain
+routing hinders deployment. A preference for secure routes over insecure ones is
+necessary to drive further deployment of routing security, but an internet
+service provider is unlikely to prefer a secure route over an insecure route
+when the secure route violates local preferences or results in a longer AS path
+{{Lychev13}}.
 
 ## DNSSEC
 
@@ -271,12 +286,13 @@ recently, warnings about less-safe HTTPS configurations (e.g. self-signed
 certificates, obsolete versions of SSL/TLS, old ciphersuites, etc.) were less
 forceful due to the prevalence of these configurations. As with DNS Flag Day,
 making changes to browser user interfaces that inform the user of low-security
-configurations is facilitated by coordination among browser developers. If one
-browser moves alone to start displaying warnings or refusing to connect to sites
-with less-safe or unsafe configurations, then users will tend to percieve the
-safer browser as more broken, as websites that used to work don't anymore: i.e.,
-non-coordinated action can lead to the false perception that an increase in P is
-an increase in Q (see, e.g. {{Google}}).
+configurations is facilitated by coordination among browser developers
+{{ChromeHTTPS}}. If one browser moves alone to start displaying warnings or
+refusing to connect to sites with less-safe or unsafe configurations, then users
+will tend to percieve the safer browser as more broken, as websites that used to
+work don't anymore: i.e., non-coordinated action can lead to the false
+perception that an increase in P is an increase in Q. This coordination
+continues up the Web stack within the W3C {{SecureContexts}}.
 
 The Automated Certificate Management Environment {{?ACME=I-D.ietf-acme-acme}}
 has further accelerated the deployment of HTTPS on the server side, by
@@ -284,7 +300,7 @@ drastically reducing the effort required to properly manage server certificates,
 reducing Q by making configuration easier than misconfiguration. Let's Encrypt
 leverages ACME to make it possible to offer certificates at scale for no cost
 with automated validation, issuing 90 million active certificates protecting 150
-million domain names in December 2018 {{LetsEncrypt}}.
+million domain names in December 2018 {{LetsEncrypt2019}}.
 
 Deployment of HTTPS accelerated in the wake of the Snowden revelations. Here,
 the perception of the utility of HTTPS has changed. Increasing confidentiality
@@ -320,7 +336,7 @@ In many cases in the running Internet, the ship has sailed: it is not at this
 point realistic to replace protocols relying on optional features for security
 with new, secure protocols. While these full replacements would be less
 susceptible to base-rate effects, they have the same misaligned incentives to
-deploy.
+deploy as the extensions the architecture presently relies on.
 
 However, an examination of our case studies does suggest incremental steps
 toward improving the current situation:
