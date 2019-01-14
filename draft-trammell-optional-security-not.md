@@ -1,7 +1,7 @@
 ---
 title: Optional Security Is Not An Option
 abbrev: optional-security
-docname: draft-trammell-optional-security-not
+docname: draft-trammell-optional-security-not-latest
 date:
 category: info
 
