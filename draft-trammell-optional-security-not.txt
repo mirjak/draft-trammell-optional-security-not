@@ -17,7 +17,11 @@ Abstract
    protocols and extensions, and notes that due to the base-rate fallacy
    and general issues with coordinated deployment of protocols under
    uncertain incentives, optional security protocols have proven
-   difficult to deploy in practice.
+   difficult to deploy in practice.  This document defines the problem,
+   examines efforts to add optional security for routing, naming, and
+   end-to-end transport, and extracts guidelines for future efforts to
+   deploy optional security protocols based on successes and failures to
+   date.
 
 Status of This Memo
 
@@ -46,10 +50,6 @@ Copyright Notice
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
 
 
 
@@ -58,18 +58,23 @@ Trammell                  Expires July 18, 2019                 [Page 1]
 Internet-Draft              optional-security               January 2019
 
 
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Problem statement . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Case studies  . . . . . . . . . . . . . . . . . . . . . . . .   3
      3.1.  Routing security: BGPSEC and RPKI . . . . . . . . . . . .   4
-     3.2.  DNSSEC  . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   5
+     3.2.  DNSSEC  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   6
    4.  Discussion and Recommendations  . . . . . . . . . . . . . . .   7
-   5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   7
+   5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   8
    6.  Informative References  . . . . . . . . . . . . . . . . . . .   8
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -100,11 +105,6 @@ Table of Contents
        succeed without the extension, albeit without the security
        properties the extension guarantees.
 
-   2.  The extension has a true positive probability P: the probability
-       that it will cause any given operation to fail, thereby
-       successfully preventing an attack that would have otherwise
-       succeeded had the extension not been enabled.  This probability
-       is a function of the extension's effectiveness as well as the
 
 
 
@@ -114,6 +114,11 @@ Trammell                  Expires July 18, 2019                 [Page 2]
 Internet-Draft              optional-security               January 2019
 
 
+   2.  The extension has a true positive probability P: the probability
+       that it will cause any given operation to fail, thereby
+       successfully preventing an attack that would have otherwise
+       succeeded had the extension not been enabled.  This probability
+       is a function of the extension's effectiveness as well as the
        probability that said operation will be an instance of the attack
        the extension prevents.
 
@@ -156,12 +161,7 @@ Internet-Draft              optional-security               January 2019
 
    Here we examine four optional security extensions, BGPSEC [RFC8205],
    RPKI [RFC6810], DNSSEC [RFC4033], and the addition of TLS to HTTP/1.1
-   [RFC2818], to see how the relationship of P and Q has affected their
-   deployment.
 
-   We choose these examples as all four represent optional security, and
-   that perfect deployment of the associated extensions - securing the
-   routing control plane, the Internet naming system, and end-to-end
 
 
 
@@ -170,6 +170,12 @@ Trammell                  Expires July 18, 2019                 [Page 3]
 Internet-Draft              optional-security               January 2019
 
 
+   [RFC2818], to see how the relationship of P and Q has affected their
+   deployment.
+
+   We choose these examples as all four represent optional security, and
+   that perfect deployment of the associated extensions - securing the
+   routing control plane, the Internet naming system, and end-to-end
    transport (at least for the Web platform) - would represent
    completely "securing" the Internet architecture at layers 3 and 4.
 
@@ -211,13 +217,7 @@ Internet-Draft              optional-security               January 2019
    prefer a secure route over an insecure route when the secure route
    violates local preferences or results in a longer AS path [Lychev13].
 
-3.2.  DNSSEC
 
-   The Domain Name System (DNS) [RFC1035] provides a distributed
-   protocol for the mapping of Internet domain names to information
-   about those names.  As originally specified, an answer to a DNS query
-   was considered authoritative if it came from an authoritative server,
-   which does not allow for authentication of information in the DNS.
 
 
 
@@ -226,6 +226,13 @@ Trammell                  Expires July 18, 2019                 [Page 4]
 Internet-Draft              optional-security               January 2019
 
 
+3.2.  DNSSEC
+
+   The Domain Name System (DNS) [RFC1035] provides a distributed
+   protocol for the mapping of Internet domain names to information
+   about those names.  As originally specified, an answer to a DNS query
+   was considered authoritative if it came from an authoritative server,
+   which does not allow for authentication of information in the DNS.
    DNS Security [RFC4033] remedies this through an extension, allowing
    DNS resource records to be signed using keys linked to zones, also
    distributed via DNS.  A name can be authenticated if every level of
@@ -264,6 +271,17 @@ Internet-Draft              optional-security               January 2019
    from the name, rendering DNS interception less useful, in effect,
    reducing P.
 
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 5]
+
+Internet-Draft              optional-security               January 2019
+
+
 3.3.  HTTP over TLS
 
    Security was added to the Web via HTTPS, running HTTP over TLS over
@@ -274,14 +292,6 @@ Internet-Draft              optional-security               January 2019
    however, until recently, warnings about less-safe HTTPS
    configurations (e.g. self-signed certificates, obsolete versions of
    SSL/TLS, old ciphersuites, etc.) were less forceful due to the
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 5]
-
-Internet-Draft              optional-security               January 2019
-
-
    prevalence of these configurations.  As with DNS Flag Day, making
    changes to browser user interfaces that inform the user of low-
    security configurations is facilitated by coordination among browser
@@ -320,16 +330,6 @@ Internet-Draft              optional-security               January 2019
    the acceleration of deployment since 2013 is the result of the
    coordinated effort of actors throughout the Web application and
    operations stack, unified around a particular event which acted as a
-   call to arms.  While there are downsides to market consolidation, the
-   relative consolidation of the browser market has made coordinated
-   action to change user interfaces possible, as well as making it
-   possible to launch a new certificate authority (by adding its issuer
-   to the trusted roots of a relatively small number of browsers) from
-   nothing in a short period of time.
-
-
-
-
 
 
 
@@ -337,6 +337,13 @@ Trammell                  Expires July 18, 2019                 [Page 6]
 
 Internet-Draft              optional-security               January 2019
 
+
+   call to arms.  While there are downsides to market consolidation, the
+   relative consolidation of the browser market has made coordinated
+   action to change user interfaces possible, as well as making it
+   possible to launch a new certificate authority (by adding its issuer
+   to the trusted roots of a relatively small number of browsers) from
+   nothing in a short period of time.
 
 4.  Discussion and Recommendations
 
@@ -354,23 +361,52 @@ Internet-Draft              optional-security               January 2019
    have the same misaligned incentives to deploy as the extensions the
    architecture presently relies on.
 
-   However, an examination of our case studies does suggest incremental
-   steps toward improving the current situation:
+   The base rate fallacy is essential to this situation, so the P/Q
+   problem is difficult to sidestep.  However, an examination of our
+   case studies does suggest incremental steps toward improving the
+   current situation:
 
    o  When natural incentives are not enough to overcome base-rate
       effects, external incentives (such as financial incentives) have
       been shown to be effective to motivate single deployment
-      decisions.
+      decisions.  This essentially provides utility in the form of cash,
+      offseting the negative cost of high Q.
 
    o  While "flag days" are difficult to arrange in the current
       Internet, coordinated action among multiple actors in a market
       (e.g.  DNS resolvers or web browsers) can reduce the risk that
       temporary breakage due to the deployment of new security protocols
-      is perceived as an error.
+      is perceived as an error, at least reducing the false perception
+      of Q.
 
    o  Efforts to automate configuration of security protocols, and
-      thereby reduce the incidence of misconfiguration Q, has a positive
-      impact on deployability.
+      thereby reduce the incidence of misconfiguration Q, have had a
+      positive impact on deployability.
+
+   Coordinated action has demonstrated success in the case of HTTPS, so
+   examining the outcome (or failure) of DNS Flag Day will provide more
+   information about the likelihood of future such actions to move
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 7]
+
+Internet-Draft              optional-security               January 2019
+
+
+   deployment of optional security features forward.  It is difficult to
+   see how insights on coordinated action in DNS and HTTPS can be
+   applied to routing security, however, given the number of actors who
+   would need to coordinate to make present routing security approaches
+   widely useful.  We note, however, that the MANRS effort
+   (https://www.manrs.org) provides an umbrella activity under which any
+   future coordination might take place.
+
+   We note that the cost of a deployment decision (at least for DNSSEC)
+   could readily be extracted from the literature [Chung17].
+   Extrapolation from this work of a model for determining the total
+   cost of full deployment of DNSSEC (or, indeed, of comprehensive
+   routing security) is left as future work.
 
 5.  Acknowledgments
 
@@ -385,15 +421,6 @@ Internet-Draft              optional-security               January 2019
    This work is partially supported by the European Commission under
    Horizon 2020 grant agreement no. 688421 Measurement and Architecture
    for a Middleboxed Internet (MAMI), and by the Swiss State Secretariat
-
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 7]
-
-Internet-Draft              optional-security               January 2019
-
-
    for Education, Research, and Innovation under contract no. 15.0268.
    This support does not imply endorsement.
 
@@ -415,6 +442,13 @@ Internet-Draft              optional-security               January 2019
               marking HTTP as \"not secure\" (Google blog post)", nil]",
               July 2018, <https://www.blog.google/products/chrome/
               milestone-chrome-security-marking-http-not-secure/>.
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 8]
+
+Internet-Draft              optional-security               January 2019
+
 
    [Chung17]  Chung, T., van Rijswijk-Deij, R., Choffnes, D., Levin, D.,
               Maggs, B., Mislove, A., and C. Wilson, "Understanding the
@@ -441,15 +475,6 @@ Internet-Draft              optional-security               January 2019
               <https://www.iab.org/2014/11/14/
               iab-statement-on-internet-confidentiality/>.
 
-
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 8]
-
-Internet-Draft              optional-security               January 2019
-
-
    [LetsEncrypt2019]
               Aas, J., "Looking Forward to 2019 (Let's Encrypt blog
               post)", December 2018,
@@ -470,6 +495,16 @@ Internet-Draft              optional-security               January 2019
    [RFC2385]  Heffernan, A., "Protection of BGP Sessions via the TCP MD5
               Signature Option", RFC 2385, DOI 10.17487/RFC2385, August
               1998, <https://www.rfc-editor.org/info/rfc2385>.
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 9]
+
+Internet-Draft              optional-security               January 2019
+
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
               DOI 10.17487/RFC2818, May 2000,
@@ -499,13 +534,6 @@ Internet-Draft              optional-security               January 2019
               DOI 10.17487/RFC6810, January 2013,
               <https://www.rfc-editor.org/info/rfc6810>.
 
-
-
-Trammell                  Expires July 18, 2019                 [Page 9]
-
-Internet-Draft              optional-security               January 2019
-
-
    [RFC7624]  Barnes, R., Schneier, B., Jennings, C., Hardie, T.,
               Trammell, B., Huitema, C., and D. Borkmann,
               "Confidentiality in the Face of Pervasive Surveillance: A
@@ -525,6 +553,14 @@ Internet-Draft              optional-security               January 2019
               van Kesteren, A., "Secure Contexts Everywhere", January
               2018, <https://blog.mozilla.org/security/2018/01/15/
               secure-contexts-everywhere/>.
+
+
+
+
+Trammell                  Expires July 18, 2019                [Page 10]
+
+Internet-Draft              optional-security               January 2019
+
 
 Author's Address
 
@@ -557,4 +593,24 @@ Author's Address
 
 
 
-Trammell                  Expires July 18, 2019                [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                [Page 11]

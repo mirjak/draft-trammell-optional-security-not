@@ -299,8 +299,8 @@ ul.toc li {
   <meta name="dct.creator" content="Trammell, B." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-trammell-optional-security-not" />
   <meta name="dct.issued" scheme="ISO8601" content="2019-01-14" />
-  <meta name="dct.abstract" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice." />
-  <meta name="description" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice." />
+  <meta name="dct.abstract" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
+  <meta name="description" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
 
 </head>
 
@@ -334,7 +334,7 @@ ul.toc li {
   <span class="filename">draft-trammell-optional-security-not</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice.</p>
+<p>This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
@@ -396,7 +396,7 @@ ul.toc li {
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#case-studies" id="case-studies">Case studies</a>
 </h1>
-<p id="rfc.section.3.p.1">Here we examine four optional security extensions,  BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a>, RPKI <a href="#RFC6810" class="xref">[RFC6810]</a>, DNSSEC <a href="#RFC4033" class="xref">[RFC4033]</a>, and the addition of TLS to HTTP/1.1 <a href="#RFC2818" class="xref">[RFC2818]</a>, to see how the relationship of P and Q has affected their deployment.</p>
+<p id="rfc.section.3.p.1">Here we examine four optional security extensions, BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a>, RPKI <a href="#RFC6810" class="xref">[RFC6810]</a>, DNSSEC <a href="#RFC4033" class="xref">[RFC4033]</a>, and the addition of TLS to HTTP/1.1 <a href="#RFC2818" class="xref">[RFC2818]</a>, to see how the relationship of P and Q has affected their deployment.</p>
 <p id="rfc.section.3.p.2">We choose these examples as all four represent optional security, and that perfect deployment of the associated extensions &#8211; securing the routing control plane, the Internet naming system, and end-to-end transport (at least for the Web platform) &#8211; would represent completely &#8220;securing&#8221; the Internet architecture at layers 3 and 4.</p>
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> <a href="#routing-security-bgpsec-and-rpki" id="routing-security-bgpsec-and-rpki">Routing security: BGPSEC and RPKI</a>
@@ -426,14 +426,16 @@ ul.toc li {
 </h1>
 <p id="rfc.section.4.p.1">It has been necessary for all new protocol work in the IETF to consider security since 2003 <a href="#RFC3552" class="xref">[RFC3552]</a>, and the Internet Architecture Board recommended that all new protocol work provide confidentiality by default in 2014 <a href="#IAB-CONFIDENTIALITY" class="xref">[IAB-CONFIDENTIALITY]</a>; new protocols should therefore already not rely on optional extensions to provide security guarantees for their own operations or for their users.</p>
 <p id="rfc.section.4.p.2">In many cases in the running Internet, the ship has sailed: it is not at this point realistic to replace protocols relying on optional features for security with new, secure protocols. While these full replacements would be less susceptible to base-rate effects, they have the same misaligned incentives to deploy as the extensions the architecture presently relies on.</p>
-<p id="rfc.section.4.p.3">However, an examination of our case studies does suggest incremental steps toward improving the current situation:</p>
+<p id="rfc.section.4.p.3">The base rate fallacy is essential to this situation, so the P/Q problem is difficult to sidestep. However, an examination of our case studies does suggest incremental steps toward improving the current situation:</p>
 <p></p>
 
 <ul>
-<li>When natural incentives are not enough to overcome base-rate effects, external incentives (such as financial incentives) have been shown to be effective to motivate single deployment decisions.</li>
-<li>While &#8220;flag days&#8221; are difficult to arrange in the current Internet, coordinated action among multiple actors in a market (e.g. DNS resolvers or web browsers) can reduce the risk that temporary breakage due to the deployment of new security protocols is perceived as an error.</li>
-<li>Efforts to automate configuration of security protocols, and thereby reduce the incidence of misconfiguration Q, has a positive impact on deployability.</li>
+<li>When natural incentives are not enough to overcome base-rate effects, external incentives (such as financial incentives) have been shown to be effective to motivate single deployment decisions. This essentially provides utility in the form of cash, offseting the negative cost of high Q.</li>
+<li>While &#8220;flag days&#8221; are difficult to arrange in the current Internet, coordinated action among multiple actors in a market (e.g. DNS resolvers or web browsers) can reduce the risk that temporary breakage due to the deployment of new security protocols is perceived as an error, at least reducing the false perception of Q.</li>
+<li>Efforts to automate configuration of security protocols, and thereby reduce the incidence of misconfiguration Q, have had a positive impact on deployability.</li>
 </ul>
+<p id="rfc.section.4.p.5">Coordinated action has demonstrated success in the case of HTTPS, so examining the outcome (or failure) of DNS Flag Day will provide more information about the likelihood of future such actions to move deployment of optional security features forward. It is difficult to see how insights on coordinated action in DNS and HTTPS can be applied to routing security, however, given the number of actors who would need to coordinate to make present routing security approaches widely useful. We note, however, that the MANRS effort (https://www.manrs.org) provides an umbrella activity under which any future coordination might take place.</p>
+<p id="rfc.section.4.p.6">We note that the cost of a deployment decision (at least for DNSSEC) could readily be extracted from the literature <a href="#Chung17" class="xref">[Chung17]</a>. Extrapolation from this work of a model for determining the total cost of full deployment of DNSSEC (or, indeed, of comprehensive routing security) is left as future work.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
 </h1>
