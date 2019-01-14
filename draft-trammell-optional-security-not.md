@@ -117,10 +117,13 @@ informative:
 
 --- abstract
 
-This document explores the common properties of optional security protocols
-and extensions, and notes that due to the base-rate fallacy and general issues
-with coordinated deployment of protocols under uncertain incentives, optional
-security protocols have proven difficult to deploy in practice.
+This document explores the common properties of optional security protocols and
+extensions, and notes that due to the base-rate fallacy and general issues with
+coordinated deployment of protocols under uncertain incentives, optional
+security protocols have proven difficult to deploy in practice. This document
+defines the problem, examines efforts to add optional security for routing,
+naming, and end-to-end transport, and extracts guidelines for future efforts to
+deploy optional security protocols based on successes and failures to date.
 
 --- middle
 
@@ -189,7 +192,7 @@ P may be treated as "in the way".
 
 # Case studies
 
-Here we examine four optional security extensions,  BGPSEC {{?RFC8205}}, RPKI
+Here we examine four optional security extensions, BGPSEC {{?RFC8205}}, RPKI
 {{?RFC6810}}, DNSSEC {{?RFC4033}}, and the addition of TLS to HTTP/1.1
 {{?RFC2818}}, to see how the relationship of P and Q has affected their
 deployment. 
@@ -338,19 +341,37 @@ with new, secure protocols. While these full replacements would be less
 susceptible to base-rate effects, they have the same misaligned incentives to
 deploy as the extensions the architecture presently relies on.
 
-However, an examination of our case studies does suggest incremental steps
-toward improving the current situation:
+The base rate fallacy is essential to this situation, so the P/Q problem is
+difficult to sidestep. However, an examination of our case studies does suggest
+incremental steps toward improving the current situation:
 
-- When natural incentives are not enough to overcome base-rate effects,
-  external incentives (such as financial incentives) have been shown to be
-  effective to motivate single deployment decisions.
+- When natural incentives are not enough to overcome base-rate effects, external
+  incentives (such as financial incentives) have been shown to be effective to
+  motivate single deployment decisions. This essentially provides utility in the
+  form of cash, offseting the negative cost of high Q.
 - While "flag days" are difficult to arrange in the current Internet,
   coordinated action among multiple actors in a market (e.g. DNS resolvers or
   web browsers) can reduce the risk that temporary breakage due to the
-  deployment of new security protocols is perceived as an error.
+  deployment of new security protocols is perceived as an error, at least
+  reducing the false perception of Q.
 - Efforts to automate configuration of security protocols, and thereby reduce
-  the incidence of misconfiguration Q, has a positive impact on
+  the incidence of misconfiguration Q, have had a positive impact on
   deployability.
+
+Coordinated action has demonstrated success in the case of HTTPS, so examining
+the outcome (or failure) of DNS Flag Day will provide more information about the
+likelihood of future such actions to move deployment of optional security
+features forward. It is difficult to see how insights on coordinated action in
+DNS and HTTPS can be applied to routing security, however, given the number of
+actors who would need to coordinate to make present routing security approaches
+widely useful. We note, however, that the MANRS effort (https://www.manrs.org)
+provides an umbrella activity under which any future coordination might take
+place.
+
+We note that the cost of a deployment decision (at least for DNSSEC) could
+readily be extracted from the literature {{Chung17}}. Extrapolation from this
+work of a model for determining the total cost of full deployment of DNSSEC (or,
+indeed, of comprehensive routing security) is left as future work.
 
 # Acknowledgments
 
