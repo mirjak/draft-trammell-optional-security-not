@@ -4,8 +4,8 @@
 
 Network Working Group                                        B. Trammell
 Internet-Draft                                                ETH Zurich
-Intended status: Informational                            March 18, 2018
-Expires: September 19, 2018
+Intended status: Informational                          January 14, 2019
+Expires: July 18, 2019
 
 
                    Optional Security Is Not An Option
@@ -34,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 19, 2018.
+   This Internet-Draft will expire on July 18, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Trammell               Expires September 19, 2018               [Page 1]
+Trammell                  Expires July 18, 2019                 [Page 1]
 
-Internet-Draft              optional-security                 March 2018
+Internet-Draft              optional-security               January 2019
 
 
 Table of Contents
@@ -66,22 +66,22 @@ Table of Contents
      3.1.  Routing security: BGPSEC and RPKI . . . . . . . . . . . .   4
      3.2.  DNSSEC  . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Discussion and guidelines . . . . . . . . . . . . . . . . . .   5
-   5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   6
-   6.  Informative References  . . . . . . . . . . . . . . . . . . .   6
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   8
+   4.  Discussion and Recommendations  . . . . . . . . . . . . . . .   6
+   5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   7
+   6.  Informative References  . . . . . . . . . . . . . . . . . . .   7
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
    Many of the protocols that make up the Internet architecture were
    designed and first implemented in an envrionment of mutual trust
    among network engineers, operators, and users, on computers that were
-   incapable of using cryptographic protocols to provide
-   confidentiality, integrity, and authenticity for those protocols, in
-   a legal environment where cryptographic technology was largely
-   protected by restricted licensing and/or prohibited by law.  The
-   result has been a protocol stack where security properties have been
-   added to core protocols using those protocol's extension mechanisms.
+   incapable of using cryptographic protection of confidentiality,
+   integrity, and authenticity for those protocols, in a legal
+   environment where the distribution of cryptographic technology was
+   largely restricted by licensing and/or prohibited by law.  The result
+   has been a protocol stack where security properties have been added
+   to core protocols using those protocols' extension mechanisms.
 
    As extension mechanisms are by design optional features of a
    protocol, this has led to a situation where security is optional up
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Trammell               Expires September 19, 2018               [Page 2]
+Trammell                  Expires July 18, 2019                 [Page 2]
 
-Internet-Draft              optional-security                 March 2018
+Internet-Draft              optional-security               January 2019
 
 
        probability that said operation will be an instance of the attack
@@ -124,18 +124,18 @@ Internet-Draft              optional-security                 March 2018
    Moving from no deployment of an optional security extension to full
    deployment is a protocol transition as described in [RFC8170].  We
    posit that the implicit transition plans for these protocols have
-   generally suffered from an underestimation of a disincentive (section
-   5.2) linked to the relationship between P and Q for any given
-   protocol.
+   generally suffered from an underestimation of the disincentive (as in
+   section 5.2 of [RFC8170]) linked to the relationship between P and Q
+   for any given protocol.
 
    Specifically, if Q is much greater than P, then any user of an
    optional security extension will face an overwhelming incentive to
    disable that extension, as the cost of dealing with spuriously
-   failing operations becomes greater than the cost of dealing with
-   relatively rare successful attacks.  This incentive becomes stronger
-   when the cause of the false positive is someone else's problem; i.e.
-   not a misconfiguration the user can possibly fix.  This situation can
-   arise when poor design, documentation, or tool support elevates the
+   failing operations overwhelms the cost of dealing with relatively
+   rare successful attacks.  This incentive becomes stronger when the
+   cause of the false positive is someone else's problem; i.e. not a
+   misconfiguration the user can possibly fix.  This situation can arise
+   when poor design, documentation, or tool support elevates the
    incidence of misconfiguration (high Q), in an environment where the
    attack models addressed by the extension are naturally rare (low P).
 
@@ -159,16 +159,20 @@ Internet-Draft              optional-security                 March 2018
    [RFC2818], to see how the relationship of P and Q has affected their
    deployment.
 
+   We choose these examples as all four are examples are optional
+   security, and that perfect deployment of the associated extensions -
+   securing the routing control plane, the Internet naming system, and
 
 
 
-
-
-
-Trammell               Expires September 19, 2018               [Page 3]
+Trammell                  Expires July 18, 2019                 [Page 3]
 
-Internet-Draft              optional-security                 March 2018
+Internet-Draft              optional-security               January 2019
 
+
+   end-to-end transport (at least for the Web platform) - would
+   represent completely "securing" the Internet architecture at layers 3
+   and 4.
 
 3.1.  Routing security: BGPSEC and RPKI
 
@@ -201,6 +205,9 @@ Internet-Draft              optional-security                 March 2018
    incremental deployment and the chance of a successful transition
    [RFC8170].
 
+   [EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing
+   BGP? reduction of expressivity?]
+
 3.2.  DNSSEC
 
    The Domain Name System (DNS) [RFC1035] provides a distributed
@@ -211,6 +218,14 @@ Internet-Draft              optional-security                 March 2018
    DNS Security [RFC4033] remedies this through an extension, allowing
    DNS resource records to be signed using keys linked to zones, also
    distributed via DNS.  A name can be authenticated if every level of
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 4]
+
+Internet-Draft              optional-security               January 2019
+
+
    the DNS hierarchy from the root up to the zone containing the name is
    signed.
 
@@ -218,90 +233,147 @@ Internet-Draft              optional-security                 March 2018
    of TLD zones were also signed.  However, the deployment status of
    DNSSEC for second-level domains (SLDs) varies wildly from region to
    region and is generally poor: only about 1% of .com, .net. and .org
-
-
-
-Trammell               Expires September 19, 2018               [Page 4]
-
-Internet-Draft              optional-security                 March 2018
-
-
-   SLDs are properly signed [DNSSEC-DEPLOYMENT].  Chung et al found
+   SLDs were properly signed [DNSSEC-DEPLOYMENT].  Chung et al found
    recently that second-level domain adoption was linked incentives for
    deployment: TLDs which provided direct financial incentives to SLDs
    for having correctly signed DNS zones tend to have much higher
-   deployment [Chung17].
+   deployment, though these incentives must be carefully designed to
+   ensure that they measure correct deployment, as opposed to more
+   easily-gamed indirect metrics [Chung17].
 
    However, the base-rate effect tends to reduce the use of DNSSEC
    validating resolvers, which remains below 15% of Internet clients
    [DNSSEC-DEPLOYMENT].
 
+   DNSSEC deployment is hindered by other obstacles, as well.  Since the
+   organic growth of DNS software predates even TCP/IP, even EDNS, the
+   foundational extension upon which DNSSEC is built are not universally
+   deployed, which inflates Q.  The current DNS Flag Day effort (see
+   https://dnsflagday.net) aims to remedy this by purposely breaking
+   backward interoperability with servers that are not EDNS-capable, by
+   coordinating action among DNS software developers and vendors.
+
+   In addition, for the Web platform at least, DNSSEC is not percieved
+   as having essential utility, given the deployment of TLS and the
+   assurances provided by the Web PKI (on which, see Section 3.3).  A
+   connection intercepted due to a poisoned DNS cache would fail to
+   authenticate unless the attacker also obtained a valid certificate
+   from the name, rendering DNS interception less useful, in effect,
+   reducing P.
+
 3.3.  HTTP over TLS
 
    Security was added to the Web via HTTPS, running HTTP over TLS over
    TCP, in the 1990s [RFC2818].  Deployment of HTTPS crossed 50% of web
-   traffic in 2017, due to accelerated deployment in the wake of the
-   Snowden revelations in 2013, and increased confidentiality of Web
-   content delivery was considered useful to address the attacker model
-   laid out in [RFC7624].
+   traffic in 2017.
 
    Base-rate effects didn't hinder the deployment of HTTPS per se;
    however, until recently, warnings about less-safe HTTPS
-   configurations (e.g. self-signed certificates) were less forceful due
-   to the prevalence of these configurations.  The reduction of
-   misconfigurations and the cost of obtaining certificates with basic
-   authentication checks through automation [I-D.ietf-acme-acme] has
-   been a major force in improving Web security.
+   configurations (e.g. self-signed certificates, obsolete versions of
+   SSL/TLS, old ciphersuites, etc.) were less forceful due to the
+   prevalence of these configurations.  As with DNS Flag Day, making
+   changes to browser user interfaces that inform the user of low-
+   security configurations is facilitated by coordination among browser
 
-   The ubiquitous deployment of HTTPS is a rare, eventual success story
-   in the deployment of an optional security mechanism.  We note that
-   each endpoint deciding to use HTTPS saw an immediate benefit, which
-   indicates good chances of success for incremental deployment.
-   However, the acceleration of deployment since 2013 is the result of
-   the coordinated effort of actors throughout the Web application and
-   operations stack, unified around a particular event (the Snowden
-   relevations) which provided a "call to arms".
 
-4.  Discussion and guidelines
+
+Trammell                  Expires July 18, 2019                 [Page 5]
+
+Internet-Draft              optional-security               January 2019
+
+
+   developers.  If one browser moves alone to start displaying warnings
+   or refusing to connect to sites with less-safe or unsafe
+   configurations, then users will tend to percieve the safer browser as
+   more broken, as websites that used to work don't anymore: i.e., non-
+   coordinated action can lead to the false perception that an increase
+   in P is an increase in Q (see, e.g.  [Google]).
+
+   The Automated Certificate Management Environment [ACME] has further
+   accelerated the deployment of HTTPS on the server side, by
+   drastically reducing the effort required to properly manage server
+   certificates, reducing Q by making configuration easier than
+   misconfiguration.  Let's Encrypt leverages ACME to make it possible
+   to offer certificates at scale for no cost with automated validation,
+   issuing 90 million active certificates protecting 150 million domain
+   names in December 2018 [LetsEncrypt].
+
+   Deployment of HTTPS accelerated in the wake of the Snowden
+   revelations.  Here, the perception of the utility of HTTPS has
+   changed.  Increasing confidentiality of Web traffic for openly-
+   available content was widely seen as not worth the cost and effort
+   prior to these revelations.  However, as it became clear that the
+   attacker model laid out in [RFC7624] was a realistic one, content
+   providers and browser vendors put the effort in to increase
+   implementation and deployment.
+
+   The ubiquitous deployment of HTTPS is not yet complete; however, all
+   indications are that it will represent a rare eventual success story
+   in the ubiquitous deployment of an optional security extention.  What
+   can we learn from this success?  We note that each endpoint deciding
+   to use HTTPS saw an immediate benefit, which is an indicator of good
+   chances of success for incremental deployment [RFC8170].  However,
+   the acceleration of deployment since 2013 is the result of the
+   coordinated effort of actors throughout the Web application and
+   operations stack, unified around a particular event which acted as a
+   call to arms.  While there are downsides to market consolidation, the
+   relative consolidation of the browser market has made coordinated
+   action to change user interfaces possible, as well as making it
+   possible to launch a new certificate authority (by adding its issuer
+   to the trusted roots of a relatively small number of browsers) from
+   nothing in a short period of time.
+
+4.  Discussion and Recommendations
 
    It has been necessary for all new protocol work in the IETF to
    consider security since 2003 [RFC3552], and the Internet Architecture
    Board recommended that all new protocol work provide confidentiality
    by default in 2014 [IAB-CONFIDENTIALITY]; new protocols should
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 6]
+
+Internet-Draft              optional-security               January 2019
+
+
    therefore already not rely on optional extensions to provide security
    guarantees for their own operations or for their users.
 
    In many cases in the running Internet, the ship has sailed: it is not
    at this point realistic to replace protocols relying on optional
-   features for security with new, secure protocols: while these full
+   features for security with new, secure protocols.  While these full
+   replacements would be less susceptible to base-rate effects, they
+   have the same misaligned incentives to deploy.
 
-
-
-Trammell               Expires September 19, 2018               [Page 5]
-
-Internet-Draft              optional-security                 March 2018
-
-
-   replacements are less susceptible to base-rate effects, they have the
-   same misaligned incentives to deploy.  In these cases, we note that
-   there are, however, some small reasons for hope:
+   However, an examination of our case studies does suggest incremental
+   steps toward improving the current situation:
 
    o  When natural incentives are not enough to overcome base-rate
       effects, external incentives (such as financial incentives) have
       been shown to be effective to motivate single deployment
       decisions.
 
+   o  While "flag days" are difficult to arrange in the current
+      Internet, coordinated action among multiple actors in a market
+      (e.g.  DNS resolvers or web browsers) can reduce the risk that
+      temporary breakage due to the deployment of new security protocols
+      is perceived as an error.
+
    o  Efforts to automate configuration of security protocols, and
-      thereby reduce the incidence of misconfiguration Q, also has a
-      positive impact on deployability.
+      thereby reduce the incidence of misconfiguration Q, has a positive
+      impact on deployability.
 
 5.  Acknowledgments
 
    Many thanks to Peter Hessler, Geoff Huston, and Roland van Rijswijk-
    Deij for conversations leading to the problem statement presented in
-   this document.  The title shamelessly riffs off that of Berkeley tech
-   report about IP options written by Rodrigo Fonseca et al., via a
-   paper at IMC 2017 by Brian Goodchild et al.
+   this document.  Thanks to Martin Thomson for his feedback on the
+   document itself, which has greatly improved subsequent versions.  The
+   title shamelessly riffs off that of Berkeley tech report about IP
+   options written by Rodrigo Fonseca et al., via a paper at IMC 2017 by
+   Brian Goodchild et al.
 
    This work is partially supported by the European Commission under
    Horizon 2020 grant agreement no. 688421 Measurement and Architecture
@@ -310,6 +382,22 @@ Internet-Draft              optional-security                 March 2018
    This support does not imply endorsement.
 
 6.  Informative References
+
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 7]
+
+Internet-Draft              optional-security               January 2019
+
+
+   [ACME]     Barnes, R., Hoffman-Andrews, J., McCarney, D., and J.
+              Kasten, "Automatic Certificate Management Environment
+              (ACME)", draft-ietf-acme-acme-18 (work in progress),
+              December 2018.
 
    [Axelsson99]
               Axelsson, S., "The Base-Rate Fallacy and its Implications
@@ -329,15 +417,6 @@ Internet-Draft              optional-security                 March 2018
               <https://www.internetsociety.org/resources/doc/2016/
               state-of-dnssec-deployment-2016/>.
 
-
-
-
-
-Trammell               Expires September 19, 2018               [Page 6]
-
-Internet-Draft              optional-security                 March 2018
-
-
    [Gilad17]  Gilad, Y., Cohen, A., Herzberg, A., Schapira, M., and H.
               Schulman, "Are We There Yet? On RPKI's Deployment and
               Security (in NDSS 2017)", November 2017,
@@ -345,17 +424,31 @@ Internet-Draft              optional-security                 March 2018
               programme/
               are-we-there-yet-rpkis-deployment-and-security/>.
 
-   [I-D.ietf-acme-acme]
-              Barnes, R., Hoffman-Andrews, J., McCarney, D., and J.
-              Kasten, "Automatic Certificate Management Environment
-              (ACME)", draft-ietf-acme-acme-10 (work in progress), March
-              2018.
+   [Google]   Schechter, E., "["A milestone for Chrome security -
+              marking HTTP as \"not secure", nil]", n.d.,
+              <https://www.blog.google/products/chrome/
+              milestone-chrome-security-marking-http-not-secure/>.
 
    [IAB-CONFIDENTIALITY]
               Internet Architecture Board, ., "IAB Statement on Internet
               Confidentiality", November 2014,
               <https://www.iab.org/2014/11/14/
               iab-statement-on-internet-confidentiality/>.
+
+   [LetsEncrypt]
+              Aas, J., "Looking Forward to 2019 (Let's Encrypt blog
+              post)", n.d., <https://letsencrypt.org/2018/12/31/
+              looking-forward-to-2019.html>.
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 8]
+
+Internet-Draft              optional-security               January 2019
+
 
    [Lychev13]
               Lychev, R., Goldberg, S., and M. Schapira, "BGP Security
@@ -386,14 +479,6 @@ Internet-Draft              optional-security                 March 2018
               RFC 4033, DOI 10.17487/RFC4033, March 2005,
               <https://www.rfc-editor.org/info/rfc4033>.
 
-
-
-
-Trammell               Expires September 19, 2018               [Page 7]
-
-Internet-Draft              optional-security                 March 2018
-
-
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
@@ -407,6 +492,19 @@ Internet-Draft              optional-security                 March 2018
               Infrastructure (RPKI) to Router Protocol", RFC 6810,
               DOI 10.17487/RFC6810, January 2013,
               <https://www.rfc-editor.org/info/rfc6810>.
+
+
+
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                 [Page 9]
+
+Internet-Draft              optional-security               January 2019
+
 
    [RFC7624]  Barnes, R., Schneier, B., Jennings, C., Hardie, T.,
               Trammell, B., Huitema, C., and D. Borkmann,
@@ -445,4 +543,18 @@ Author's Address
 
 
 
-Trammell               Expires September 19, 2018               [Page 8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trammell                  Expires July 18, 2019                [Page 10]
