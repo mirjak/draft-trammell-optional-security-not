@@ -397,14 +397,14 @@ ul.toc li {
 <a href="#rfc.section.3">3.</a> <a href="#case-studies" id="case-studies">Case studies</a>
 </h1>
 <p id="rfc.section.3.p.1">Here we examine four optional security extensions,  BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a>, RPKI <a href="#RFC6810" class="xref">[RFC6810]</a>, DNSSEC <a href="#RFC4033" class="xref">[RFC4033]</a>, and the addition of TLS to HTTP/1.1 <a href="#RFC2818" class="xref">[RFC2818]</a>, to see how the relationship of P and Q has affected their deployment.</p>
-<p id="rfc.section.3.p.2">We choose these examples as all four are examples are optional security, and that perfect deployment of the associated extensions &#8211; securing the routing control plane, the Internet naming system, and end-to-end transport (at least for the Web platform) &#8211; would represent completely &#8220;securing&#8221; the Internet architecture at layers 3 and 4.</p>
+<p id="rfc.section.3.p.2">We choose these examples as all four represent optional security, and that perfect deployment of the associated extensions &#8211; securing the routing control plane, the Internet naming system, and end-to-end transport (at least for the Web platform) &#8211; would represent completely &#8220;securing&#8221; the Internet architecture at layers 3 and 4.</p>
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> <a href="#routing-security-bgpsec-and-rpki" id="routing-security-bgpsec-and-rpki">Routing security: BGPSEC and RPKI</a>
 </h1>
 <p id="rfc.section.3.1.p.1">The Border Gateway Protocol <a href="#RFC4271" class="xref">[RFC4271]</a> (BGP) is used to propagate interdomain routing information in the Internet. Its original design has no integrity protection at all, either on a hop-by-hop or on an end-to-end basis.  In the meantime, the TCP Authentication Option <a href="#RFC5925" class="xref">[RFC5925]</a> (and MD5 authentication <a href="#RFC2385" class="xref">[RFC2385]</a>, which it replaces) have been deployed to add hop-by-hop integrity protection.</p>
 <p id="rfc.section.3.1.p.2">End-to-end protection of the integrity of BGP announcements is protected by two complementary approaches. Route announcements in BGP updates protected by BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a> have the property that the every Autonomous System (AS) on the path of ASes listed in the UPDATE message has explicitly authorized the advertisement of the route to the subsequent AS in the path. RPKI <a href="#RFC6810" class="xref">[RFC6810]</a> protects prefixes, granting the right to advertise a prefix (i.e., be the first AS in the AS path) to a specific AS. RPKI serves as a trust root for BGPSEC, as well.</p>
-<p id="rfc.section.3.1.p.3">These approaches are not yet universally deployed. BGP route origin authentication approaches provide little benefit to individual deployers until it is almost universally deployed <a href="#Lychev13" class="xref">[Lychev13]</a>. RPKI route origin validation is similarly deployed in about 15% of the Internet core; two thirds of these networks only assign lower preference to non-validating announcements. This indicates significant caution with respect to RPKI mistakes <a href="#Gilad17" class="xref">[Gilad17]</a>. In both cases the lack of incentives for each independent deployment, including the false positive risk, greatly reduces the speed of incremental deployment and the chance of a successful transition <a href="#RFC8170" class="xref">[RFC8170]</a>.</p>
-<p id="rfc.section.3.1.p.4">[EDITOR&#8217;S NOTE: more discussion of non-P/Q reasons for not securing BGP? reduction of expressivity?]</p>
+<p id="rfc.section.3.1.p.3">These approaches are not (yet) universally deployed. BGP route origin authentication approaches provide little benefit to individual deployers until it is almost universally deployed <a href="#Lychev13" class="xref">[Lychev13]</a>. RPKI route origin validation is similarly deployed in about 15% of the Internet core; two thirds of these networks only assign lower preference to non-validating announcements. This indicates significant caution with respect to RPKI mistakes <a href="#Gilad17" class="xref">[Gilad17]</a>. In both cases the lack of incentives for each independent deployment, including the false positive risk, greatly reduces the speed of incremental deployment and the chance of a successful transition <a href="#RFC8170" class="xref">[RFC8170]</a>.</p>
+<p id="rfc.section.3.1.p.4">In addition, the perception of security as a secondary concern for interdomain routing hinders deployment. A preference for secure routes over insecure ones is necessary to drive further deployment of routing security, but an internet service provider is unlikely to prefer a secure route over an insecure route when the secure route violates local preferences or results in a longer AS path <a href="#Lychev13" class="xref">[Lychev13]</a>.</p>
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#dnssec" id="dnssec">DNSSEC</a>
 </h1>
@@ -417,15 +417,15 @@ ul.toc li {
 <a href="#rfc.section.3.3">3.3.</a> <a href="#http-over-tls" id="http-over-tls">HTTP over TLS</a>
 </h1>
 <p id="rfc.section.3.3.p.1">Security was added to the Web via HTTPS, running HTTP over TLS over TCP, in the 1990s <a href="#RFC2818" class="xref">[RFC2818]</a>. Deployment of HTTPS crossed 50% of web traffic in 2017.</p>
-<p id="rfc.section.3.3.p.2">Base-rate effects didn&#8217;t hinder the deployment of HTTPS per se; however, until recently, warnings about less-safe HTTPS configurations (e.g. self-signed certificates, obsolete versions of SSL/TLS, old ciphersuites, etc.) were less forceful due to the prevalence of these configurations. As with DNS Flag Day, making changes to browser user interfaces that inform the user of low-security configurations is facilitated by coordination among browser developers. If one browser moves alone to start displaying warnings or refusing to connect to sites with less-safe or unsafe configurations, then users will tend to percieve the safer browser as more broken, as websites that used to work don&#8217;t anymore: i.e., non-coordinated action can lead to the false perception that an increase in P is an increase in Q (see, e.g. <a href="#Google" class="xref">[Google]</a>).</p>
-<p id="rfc.section.3.3.p.3">The Automated Certificate Management Environment <a href="#ACME" class="xref">[ACME]</a> has further accelerated the deployment of HTTPS on the server side, by drastically reducing the effort required to properly manage server certificates, reducing Q by making configuration easier than misconfiguration. Let&#8217;s Encrypt leverages ACME to make it possible to offer certificates at scale for no cost with automated validation, issuing 90 million active certificates protecting 150 million domain names in December 2018 <a href="#LetsEncrypt" class="xref">[LetsEncrypt]</a>.</p>
+<p id="rfc.section.3.3.p.2">Base-rate effects didn&#8217;t hinder the deployment of HTTPS per se; however, until recently, warnings about less-safe HTTPS configurations (e.g. self-signed certificates, obsolete versions of SSL/TLS, old ciphersuites, etc.) were less forceful due to the prevalence of these configurations. As with DNS Flag Day, making changes to browser user interfaces that inform the user of low-security configurations is facilitated by coordination among browser developers <a href="#ChromeHTTPS" class="xref">[ChromeHTTPS]</a>. If one browser moves alone to start displaying warnings or refusing to connect to sites with less-safe or unsafe configurations, then users will tend to percieve the safer browser as more broken, as websites that used to work don&#8217;t anymore: i.e., non-coordinated action can lead to the false perception that an increase in P is an increase in Q. This coordination continues up the Web stack within the W3C <a href="#SecureContexts" class="xref">[SecureContexts]</a>.</p>
+<p id="rfc.section.3.3.p.3">The Automated Certificate Management Environment <a href="#ACME" class="xref">[ACME]</a> has further accelerated the deployment of HTTPS on the server side, by drastically reducing the effort required to properly manage server certificates, reducing Q by making configuration easier than misconfiguration. Let&#8217;s Encrypt leverages ACME to make it possible to offer certificates at scale for no cost with automated validation, issuing 90 million active certificates protecting 150 million domain names in December 2018 <a href="#LetsEncrypt2019" class="xref">[LetsEncrypt2019]</a>.</p>
 <p id="rfc.section.3.3.p.4">Deployment of HTTPS accelerated in the wake of the Snowden revelations. Here, the perception of the utility of HTTPS has changed. Increasing confidentiality of Web traffic for openly-available content was widely seen as not worth the cost and effort prior to these revelations. However, as it became clear that the attacker model laid out in <a href="#RFC7624" class="xref">[RFC7624]</a> was a realistic one, content providers and browser vendors put the effort in to increase implementation and deployment.</p>
 <p id="rfc.section.3.3.p.5">The ubiquitous deployment of HTTPS is not yet complete; however, all indications are that it will represent a rare eventual success story in the ubiquitous deployment of an optional security extention. What can we learn from this success? We note that each endpoint deciding to use HTTPS saw an immediate benefit, which is an indicator of good chances of success for incremental deployment <a href="#RFC8170" class="xref">[RFC8170]</a>. However, the acceleration of deployment since 2013 is the result of the coordinated effort of actors throughout the Web application and operations stack, unified around a particular event which acted as a call to arms. While there are downsides to market consolidation, the relative consolidation of the browser market has made coordinated action to change user interfaces possible, as well as making it possible to launch a new certificate authority (by adding its issuer to the trusted roots of a relatively small number of browsers) from nothing in a short period of time.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#discussion-and-recommendations" id="discussion-and-recommendations">Discussion and Recommendations</a>
 </h1>
 <p id="rfc.section.4.p.1">It has been necessary for all new protocol work in the IETF to consider security since 2003 <a href="#RFC3552" class="xref">[RFC3552]</a>, and the Internet Architecture Board recommended that all new protocol work provide confidentiality by default in 2014 <a href="#IAB-CONFIDENTIALITY" class="xref">[IAB-CONFIDENTIALITY]</a>; new protocols should therefore already not rely on optional extensions to provide security guarantees for their own operations or for their users.</p>
-<p id="rfc.section.4.p.2">In many cases in the running Internet, the ship has sailed: it is not at this point realistic to replace protocols relying on optional features for security with new, secure protocols. While these full replacements would be less susceptible to base-rate effects, they have the same misaligned incentives to deploy.</p>
+<p id="rfc.section.4.p.2">In many cases in the running Internet, the ship has sailed: it is not at this point realistic to replace protocols relying on optional features for security with new, secure protocols. While these full replacements would be less susceptible to base-rate effects, they have the same misaligned incentives to deploy as the extensions the architecture presently relies on.</p>
 <p id="rfc.section.4.p.3">However, an examination of our case studies does suggest incremental steps toward improving the current situation:</p>
 <p></p>
 
@@ -453,6 +453,11 @@ ul.toc li {
 <a>Axelsson, S.</a>, "<a href="http://www.raid-symposium.org/raid99/PAPERS/Axelsson.pdf">The Base-Rate Fallacy and its Implications for the Difficulty of Intrusion Detection (in ACM CCS 1999)</a>", 1999.</td>
 </tr>
 <tr>
+<td class="reference"><b id="ChromeHTTPS">[ChromeHTTPS]</b></td>
+<td class="top">
+<a>Schechter, E.</a>, "<a href="https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/">["A milestone for Chrome security - marking HTTP as \"not secure\" (Google blog post)", nil]</a>", July 2018.</td>
+</tr>
+<tr>
 <td class="reference"><b id="Chung17">[Chung17]</b></td>
 <td class="top">
 <a>Chung, T.</a>, <a>van Rijswijk-Deij, R.</a>, <a>Choffnes, D.</a>, <a>Levin, D.</a>, <a>Maggs, B.</a>, <a>Mislove, A.</a> and <a>C. Wilson</a>, "<a href="https://conferences.sigcomm.org/imc/2017/papers/imc17-final53.pdf">Understanding the Role of Registrars in DNSSEC Deployment</a>", November 2017.</td>
@@ -468,19 +473,14 @@ ul.toc li {
 <a>Gilad, Y.</a>, <a>Cohen, A.</a>, <a>Herzberg, A.</a>, <a>Schapira, M.</a> and <a>H. Schulman</a>, "<a href="https://www.ndss-symposium.org/ndss2017/ndss-2017-programme/are-we-there-yet-rpkis-deployment-and-security/">Are We There Yet? On RPKI&#8217;s Deployment and Security (in NDSS 2017)</a>", November 2017.</td>
 </tr>
 <tr>
-<td class="reference"><b id="Google">[Google]</b></td>
-<td class="top">
-<a>Schechter, E.</a>, "<a href="https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/">["A milestone for Chrome security - marking HTTP as \"not secure", nil]</a>", n.d..</td>
-</tr>
-<tr>
 <td class="reference"><b id="IAB-CONFIDENTIALITY">[IAB-CONFIDENTIALITY]</b></td>
 <td class="top">
 <a>Internet Architecture Board, .</a>, "<a href="https://www.iab.org/2014/11/14/iab-statement-on-internet-confidentiality/">IAB Statement on Internet Confidentiality</a>", November 2014.</td>
 </tr>
 <tr>
-<td class="reference"><b id="LetsEncrypt">[LetsEncrypt]</b></td>
+<td class="reference"><b id="LetsEncrypt2019">[LetsEncrypt2019]</b></td>
 <td class="top">
-<a>Aas, J.</a>, "<a href="https://letsencrypt.org/2018/12/31/looking-forward-to-2019.html">Looking Forward to 2019 (Let's Encrypt blog post)</a>", n.d..</td>
+<a>Aas, J.</a>, "<a href="https://letsencrypt.org/2018/12/31/looking-forward-to-2019.html">Looking Forward to 2019 (Let's Encrypt blog post)</a>", December 2018.</td>
 </tr>
 <tr>
 <td class="reference"><b id="Lychev13">[Lychev13]</b></td>
@@ -541,6 +541,11 @@ ul.toc li {
 <td class="reference"><b id="RFC8205">[RFC8205]</b></td>
 <td class="top">
 <a>Lepinski, M.</a> and <a>K. Sriram</a>, "<a href="https://tools.ietf.org/html/rfc8205">BGPsec Protocol Specification</a>", RFC 8205, DOI 10.17487/RFC8205, September 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="SecureContexts">[SecureContexts]</b></td>
+<td class="top">
+<a>van Kesteren, A.</a>, "<a href="https://blog.mozilla.org/security/2018/01/15/secure-contexts-everywhere/">Secure Contexts Everywhere</a>", January 2018.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>

@@ -66,9 +66,9 @@ Table of Contents
      3.1.  Routing security: BGPSEC and RPKI . . . . . . . . . . . .   4
      3.2.  DNSSEC  . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.3.  HTTP over TLS . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Discussion and Recommendations  . . . . . . . . . . . . . . .   6
+   4.  Discussion and Recommendations  . . . . . . . . . . . . . . .   7
    5.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   7
-   6.  Informative References  . . . . . . . . . . . . . . . . . . .   7
+   6.  Informative References  . . . . . . . . . . . . . . . . . . .   8
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
@@ -159,9 +159,9 @@ Internet-Draft              optional-security               January 2019
    [RFC2818], to see how the relationship of P and Q has affected their
    deployment.
 
-   We choose these examples as all four are examples are optional
-   security, and that perfect deployment of the associated extensions -
-   securing the routing control plane, the Internet naming system, and
+   We choose these examples as all four represent optional security, and
+   that perfect deployment of the associated extensions - securing the
+   routing control plane, the Internet naming system, and end-to-end
 
 
 
@@ -170,9 +170,8 @@ Trammell                  Expires July 18, 2019                 [Page 3]
 Internet-Draft              optional-security               January 2019
 
 
-   end-to-end transport (at least for the Web platform) - would
-   represent completely "securing" the Internet architecture at layers 3
-   and 4.
+   transport (at least for the Web platform) - would represent
+   completely "securing" the Internet architecture at layers 3 and 4.
 
 3.1.  Routing security: BGPSEC and RPKI
 
@@ -193,8 +192,8 @@ Internet-Draft              optional-security               January 2019
    the AS path) to a specific AS.  RPKI serves as a trust root for
    BGPSEC, as well.
 
-   These approaches are not yet universally deployed.  BGP route origin
-   authentication approaches provide little benefit to individual
+   These approaches are not (yet) universally deployed.  BGP route
+   origin authentication approaches provide little benefit to individual
    deployers until it is almost universally deployed [Lychev13].  RPKI
    route origin validation is similarly deployed in about 15% of the
    Internet core; two thirds of these networks only assign lower
@@ -205,8 +204,12 @@ Internet-Draft              optional-security               January 2019
    incremental deployment and the chance of a successful transition
    [RFC8170].
 
-   [EDITOR'S NOTE: more discussion of non-P/Q reasons for not securing
-   BGP? reduction of expressivity?]
+   In addition, the perception of security as a secondary concern for
+   interdomain routing hinders deployment.  A preference for secure
+   routes over insecure ones is necessary to drive further deployment of
+   routing security, but an internet service provider is unlikely to
+   prefer a secure route over an insecure route when the secure route
+   violates local preferences or results in a longer AS path [Lychev13].
 
 3.2.  DNSSEC
 
@@ -215,9 +218,6 @@ Internet-Draft              optional-security               January 2019
    about those names.  As originally specified, an answer to a DNS query
    was considered authoritative if it came from an authoritative server,
    which does not allow for authentication of information in the DNS.
-   DNS Security [RFC4033] remedies this through an extension, allowing
-   DNS resource records to be signed using keys linked to zones, also
-   distributed via DNS.  A name can be authenticated if every level of
 
 
 
@@ -226,6 +226,9 @@ Trammell                  Expires July 18, 2019                 [Page 4]
 Internet-Draft              optional-security               January 2019
 
 
+   DNS Security [RFC4033] remedies this through an extension, allowing
+   DNS resource records to be signed using keys linked to zones, also
+   distributed via DNS.  A name can be authenticated if every level of
    the DNS hierarchy from the root up to the zone containing the name is
    signed.
 
@@ -271,9 +274,6 @@ Internet-Draft              optional-security               January 2019
    however, until recently, warnings about less-safe HTTPS
    configurations (e.g. self-signed certificates, obsolete versions of
    SSL/TLS, old ciphersuites, etc.) were less forceful due to the
-   prevalence of these configurations.  As with DNS Flag Day, making
-   changes to browser user interfaces that inform the user of low-
-   security configurations is facilitated by coordination among browser
 
 
 
@@ -282,12 +282,16 @@ Trammell                  Expires July 18, 2019                 [Page 5]
 Internet-Draft              optional-security               January 2019
 
 
-   developers.  If one browser moves alone to start displaying warnings
-   or refusing to connect to sites with less-safe or unsafe
-   configurations, then users will tend to percieve the safer browser as
-   more broken, as websites that used to work don't anymore: i.e., non-
-   coordinated action can lead to the false perception that an increase
-   in P is an increase in Q (see, e.g.  [Google]).
+   prevalence of these configurations.  As with DNS Flag Day, making
+   changes to browser user interfaces that inform the user of low-
+   security configurations is facilitated by coordination among browser
+   developers [ChromeHTTPS].  If one browser moves alone to start
+   displaying warnings or refusing to connect to sites with less-safe or
+   unsafe configurations, then users will tend to percieve the safer
+   browser as more broken, as websites that used to work don't anymore:
+   i.e., non-coordinated action can lead to the false perception that an
+   increase in P is an increase in Q.  This coordination continues up
+   the Web stack within the W3C [SecureContexts].
 
    The Automated Certificate Management Environment [ACME] has further
    accelerated the deployment of HTTPS on the server side, by
@@ -296,7 +300,7 @@ Internet-Draft              optional-security               January 2019
    misconfiguration.  Let's Encrypt leverages ACME to make it possible
    to offer certificates at scale for no cost with automated validation,
    issuing 90 million active certificates protecting 150 million domain
-   names in December 2018 [LetsEncrypt].
+   names in December 2018 [LetsEncrypt2019].
 
    Deployment of HTTPS accelerated in the wake of the Snowden
    revelations.  Here, the perception of the utility of HTTPS has
@@ -323,12 +327,8 @@ Internet-Draft              optional-security               January 2019
    to the trusted roots of a relatively small number of browsers) from
    nothing in a short period of time.
 
-4.  Discussion and Recommendations
 
-   It has been necessary for all new protocol work in the IETF to
-   consider security since 2003 [RFC3552], and the Internet Architecture
-   Board recommended that all new protocol work provide confidentiality
-   by default in 2014 [IAB-CONFIDENTIALITY]; new protocols should
+
 
 
 
@@ -338,6 +338,12 @@ Trammell                  Expires July 18, 2019                 [Page 6]
 Internet-Draft              optional-security               January 2019
 
 
+4.  Discussion and Recommendations
+
+   It has been necessary for all new protocol work in the IETF to
+   consider security since 2003 [RFC3552], and the Internet Architecture
+   Board recommended that all new protocol work provide confidentiality
+   by default in 2014 [IAB-CONFIDENTIALITY]; new protocols should
    therefore already not rely on optional extensions to provide security
    guarantees for their own operations or for their users.
 
@@ -345,7 +351,8 @@ Internet-Draft              optional-security               January 2019
    at this point realistic to replace protocols relying on optional
    features for security with new, secure protocols.  While these full
    replacements would be less susceptible to base-rate effects, they
-   have the same misaligned incentives to deploy.
+   have the same misaligned incentives to deploy as the extensions the
+   architecture presently relies on.
 
    However, an examination of our case studies does suggest incremental
    steps toward improving the current situation:
@@ -378,13 +385,6 @@ Internet-Draft              optional-security               January 2019
    This work is partially supported by the European Commission under
    Horizon 2020 grant agreement no. 688421 Measurement and Architecture
    for a Middleboxed Internet (MAMI), and by the Swiss State Secretariat
-   for Education, Research, and Innovation under contract no. 15.0268.
-   This support does not imply endorsement.
-
-6.  Informative References
-
-
-
 
 
 
@@ -393,6 +393,11 @@ Trammell                  Expires July 18, 2019                 [Page 7]
 
 Internet-Draft              optional-security               January 2019
 
+
+   for Education, Research, and Innovation under contract no. 15.0268.
+   This support does not imply endorsement.
+
+6.  Informative References
 
    [ACME]     Barnes, R., Hoffman-Andrews, J., McCarney, D., and J.
               Kasten, "Automatic Certificate Management Environment
@@ -404,6 +409,12 @@ Internet-Draft              optional-security               January 2019
               for the Difficulty of Intrusion Detection (in ACM CCS
               1999)", 1999, <http://www.raid-
               symposium.org/raid99/PAPERS/Axelsson.pdf>.
+
+   [ChromeHTTPS]
+              Schechter, E., "["A milestone for Chrome security -
+              marking HTTP as \"not secure\" (Google blog post)", nil]",
+              July 2018, <https://www.blog.google/products/chrome/
+              milestone-chrome-security-marking-http-not-secure/>.
 
    [Chung17]  Chung, T., van Rijswijk-Deij, R., Choffnes, D., Levin, D.,
               Maggs, B., Mislove, A., and C. Wilson, "Understanding the
@@ -424,22 +435,11 @@ Internet-Draft              optional-security               January 2019
               programme/
               are-we-there-yet-rpkis-deployment-and-security/>.
 
-   [Google]   Schechter, E., "["A milestone for Chrome security -
-              marking HTTP as \"not secure", nil]", n.d.,
-              <https://www.blog.google/products/chrome/
-              milestone-chrome-security-marking-http-not-secure/>.
-
    [IAB-CONFIDENTIALITY]
               Internet Architecture Board, ., "IAB Statement on Internet
               Confidentiality", November 2014,
               <https://www.iab.org/2014/11/14/
               iab-statement-on-internet-confidentiality/>.
-
-   [LetsEncrypt]
-              Aas, J., "Looking Forward to 2019 (Let's Encrypt blog
-              post)", n.d., <https://letsencrypt.org/2018/12/31/
-              looking-forward-to-2019.html>.
-
 
 
 
@@ -449,6 +449,12 @@ Trammell                  Expires July 18, 2019                 [Page 8]
 
 Internet-Draft              optional-security               January 2019
 
+
+   [LetsEncrypt2019]
+              Aas, J., "Looking Forward to 2019 (Let's Encrypt blog
+              post)", December 2018,
+              <https://letsencrypt.org/2018/12/31/
+              looking-forward-to-2019.html>.
 
    [Lychev13]
               Lychev, R., Goldberg, S., and M. Schapira, "BGP Security
@@ -495,12 +501,6 @@ Internet-Draft              optional-security               January 2019
 
 
 
-
-
-
-
-
-
 Trammell                  Expires July 18, 2019                 [Page 9]
 
 Internet-Draft              optional-security               January 2019
@@ -521,6 +521,11 @@ Internet-Draft              optional-security               January 2019
               Specification", RFC 8205, DOI 10.17487/RFC8205, September
               2017, <https://www.rfc-editor.org/info/rfc8205>.
 
+   [SecureContexts]
+              van Kesteren, A., "Secure Contexts Everywhere", January
+              2018, <https://blog.mozilla.org/security/2018/01/15/
+              secure-contexts-everywhere/>.
+
 Author's Address
 
    Brian Trammell
@@ -530,11 +535,6 @@ Author's Address
    Switzerland
 
    Email: ietf@trammell.ch
-
-
-
-
-
 
 
 
