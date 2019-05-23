@@ -15,10 +15,10 @@ author:
   -
     ins: B. Trammell
     name: Brian Trammell
-    org: ETH Zurich
+    org: Google
     email: ietf@trammell.ch
-    street: Universitatstrasse 6
-    city: 8092 Zurich
+    street: Gustav-Gull-Platz 1
+    city: 8004 Zurich
     country: Switzerland
 
 normative:
@@ -114,6 +114,14 @@ informative:
       Secure Contexts Everywhere
     target: https://blog.mozilla.org/security/2018/01/15/secure-contexts-everywhere/
     date: 2018-01-15
+  Snijders19:
+    author:
+      -
+        ins: J. Snijders
+    title:
+      Routing Security Update Q2 2019 (RIPE 78 presentation)
+    target: https://ripe78.ripe.net/presentations/113-routing_security_ripe78_snijders.pdf
+    date: 2019-05-23
 
 --- abstract
 
@@ -168,15 +176,15 @@ implicit transition plans for these protocols have generally suffered from an
 underestimation of the disincentive (as in section 5.2 of {{RFC8170}}) linked to
 the relationship between P and Q for any given protocol.
 
-Specifically, if Q is much greater than P, then any user of an optional security
-extension will face an overwhelming incentive to disable that extension, as the
-cost of dealing with spuriously failing operations overwhelms the cost of
-dealing with relatively rare successful attacks. This incentive becomes stronger
-when the cause of the false positive is someone else's problem; i.e. not a
-misconfiguration the user can possibly fix. This situation can arise when poor
-design, documentation, or tool support elevates the incidence of
-misconfiguration (high Q), in an environment where the attack models addressed
-by the extension are naturally rare (low P).
+Specifically, if Q is much greater than P, then any user of an optional
+security extension will face an overwhelming incentive to disable that
+extension, as the cost of dealing with spuriously failing operations
+overwhelms the cost of dealing with relatively rare successful attacks. This
+incentive becomes stronger when the cause of the false positive is someone
+else's problem; i.e. not a misconfiguration the user can possibly fix. This
+situation can arise when poor design, documentation, or tool support elevates
+the incidence of misconfiguration (high Q), in an environment where the attack
+models addressed by the extension are naturally rare (low P).
 
 This is not a novel observation; a similar phenomenon following from the
 base-rate fallacy has been studied in the literature on operational security,
@@ -221,22 +229,25 @@ protects prefixes, granting the right to advertise a prefix (i.e., be the
 first AS in the AS path) to a specific AS. RPKI serves as a trust root for
 BGPSEC, as well.
 
-These approaches are not (yet) universally deployed. BGP route origin
+These approaches are not yet universally deployed. BGP route origin
 authentication approaches provide little benefit to individual deployers until
 it is almost universally deployed {{Lychev13}}. RPKI route origin validation is
 similarly deployed in about 15% of the Internet core; two thirds of these
 networks only assign lower preference to non-validating announcements. This
-indicates significant caution with respect to RPKI mistakes {{Gilad17}}. In both
-cases the lack of incentives for each independent deployment, including the
-false positive risk, greatly reduces the speed of incremental deployment and the
-chance of a successful transition {{?RFC8170}}.
+indicates significant caution with respect to RPKI mistakes {{Gilad17}}. 
 
-In addition, the perception of security as a secondary concern for interdomain
-routing hinders deployment. A preference for secure routes over insecure ones is
-necessary to drive further deployment of routing security, but an internet
-service provider is unlikely to prefer a secure route over an insecure route
-when the secure route violates local preferences or results in a longer AS path
-{{Lychev13}}.
+There are indications that this caution may be abating. At the RIPE 78 meeting
+in May 2019, Job Snijders reported that networks are beginning to validate
+route origins, especially on peering sessions {{Snijders19}}. Concerted effort
+to improve tooling for RPKI signing and validation have reduced Q.  Deployment
+is acclerating, which Snijders attributes in part to fear of missing out: as
+individual networks deploy validation and find that the risk to availability
+is lower than feared, and their operators realize that the added security of
+rejecting RPKI invalid announcements can be used as a competetive advantage.
+The actions of smaller networks can drive to decisions by larger ones:
+Snijders relates a story in which the current "snowball effect" began with a
+single small operator in the Netherlands announcing that they were rejecting
+invalids, and that nothing bad had happened.
 
 ## DNSSEC
 
@@ -354,9 +365,9 @@ incremental steps toward improving the current situation:
   web browsers) can reduce the risk that temporary breakage due to the
   deployment of new security protocols is perceived as an error, at least
   reducing the false perception of Q.
-- Efforts to automate configuration of security protocols, and thereby reduce
-  the incidence of misconfiguration Q, have had a positive impact on
-  deployability.
+- Efforts to automate configuration of security protocols, and to improve
+  tooling for managing secure operations, can reduce the incidence of
+  misconfiguration Q, and have had a positive impact on deployability.
 
 Coordinated action has demonstrated success in the case of HTTPS, so examining
 the outcome (or failure) of DNS Flag Day will provide more information about the
