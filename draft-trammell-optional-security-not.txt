@@ -3,9 +3,9 @@
 
 
 Network Working Group                                        B. Trammell
-Internet-Draft                                                ETH Zurich
-Intended status: Informational                          January 14, 2019
-Expires: July 18, 2019
+Internet-Draft                                                    Google
+Intended status: Informational                              May 23, 2019
+Expires: November 24, 2019
 
 
                    Optional Security Is Not An Option
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 18, 2019.
+   This Internet-Draft will expire on November 24, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Trammell                  Expires July 18, 2019                 [Page 1]
+Trammell                Expires November 24, 2019               [Page 1]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Trammell                  Expires July 18, 2019                 [Page 2]
+Trammell                Expires November 24, 2019               [Page 2]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
    2.  The extension has a true positive probability P: the probability
@@ -165,9 +165,9 @@ Internet-Draft              optional-security               January 2019
 
 
 
-Trammell                  Expires July 18, 2019                 [Page 3]
+Trammell                Expires November 24, 2019               [Page 3]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
    [RFC2818], to see how the relationship of P and Q has affected their
@@ -198,33 +198,36 @@ Internet-Draft              optional-security               January 2019
    the AS path) to a specific AS.  RPKI serves as a trust root for
    BGPSEC, as well.
 
-   These approaches are not (yet) universally deployed.  BGP route
-   origin authentication approaches provide little benefit to individual
+   These approaches are not yet universally deployed.  BGP route origin
+   authentication approaches provide little benefit to individual
    deployers until it is almost universally deployed [Lychev13].  RPKI
    route origin validation is similarly deployed in about 15% of the
    Internet core; two thirds of these networks only assign lower
    preference to non-validating announcements.  This indicates
-   significant caution with respect to RPKI mistakes [Gilad17].  In both
-   cases the lack of incentives for each independent deployment,
-   including the false positive risk, greatly reduces the speed of
-   incremental deployment and the chance of a successful transition
-   [RFC8170].
+   significant caution with respect to RPKI mistakes [Gilad17].
 
-   In addition, the perception of security as a secondary concern for
-   interdomain routing hinders deployment.  A preference for secure
-   routes over insecure ones is necessary to drive further deployment of
-   routing security, but an internet service provider is unlikely to
-   prefer a secure route over an insecure route when the secure route
-   violates local preferences or results in a longer AS path [Lychev13].
+   There are indications that this caution may be abating.  At the RIPE
+   78 meeting in May 2019, Job Snijders reported that networks are
+   beginning to validate route origins, especially on peering sessions
+   [Snijders19].  Concerted effort to improve tooling for RPKI signing
+   and validation have reduced Q.  Deployment is acclerating, which
+   Snijders attributes in part to fear of missing out: as individual
+   networks deploy validation and find that the risk to availability is
+   lower than feared, and their operators realize that the added
+   security of rejecting RPKI invalid announcements can be used as a
+   competetive advantage.  The actions of smaller networks can drive to
+   decisions by larger ones: Snijders relates a story in which the
+   current "snowball effect" began with a single small operator in the
 
 
 
-
-
-Trammell                  Expires July 18, 2019                 [Page 4]
+Trammell                Expires November 24, 2019               [Page 4]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
+
+   Netherlands announcing that they were rejecting invalids, and that
+   nothing bad had happened.
 
 3.2.  DNSSEC
 
@@ -274,12 +277,9 @@ Internet-Draft              optional-security               January 2019
 
 
 
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 5]
+Trammell                Expires November 24, 2019               [Page 5]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
 3.3.  HTTP over TLS
@@ -333,9 +333,9 @@ Internet-Draft              optional-security               January 2019
 
 
 
-Trammell                  Expires July 18, 2019                 [Page 6]
+Trammell                Expires November 24, 2019               [Page 6]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
    call to arms.  While there are downsides to market consolidation, the
@@ -379,21 +379,22 @@ Internet-Draft              optional-security               January 2019
       is perceived as an error, at least reducing the false perception
       of Q.
 
-   o  Efforts to automate configuration of security protocols, and
-      thereby reduce the incidence of misconfiguration Q, have had a
-      positive impact on deployability.
+   o  Efforts to automate configuration of security protocols, and to
+      improve tooling for managing secure operations, can reduce the
+      incidence of misconfiguration Q, and have had a positive impact on
+      deployability.
 
    Coordinated action has demonstrated success in the case of HTTPS, so
    examining the outcome (or failure) of DNS Flag Day will provide more
-   information about the likelihood of future such actions to move
 
 
 
-Trammell                  Expires July 18, 2019                 [Page 7]
+Trammell                Expires November 24, 2019               [Page 7]
 
-Internet-Draft              optional-security               January 2019
+Internet-Draft              optional-security                   May 2019
 
 
+   information about the likelihood of future such actions to move
    deployment of optional security features forward.  It is difficult to
    see how insights on coordinated action in DNS and HTTPS can be
    applied to routing security, however, given the number of actors who
@@ -437,18 +438,23 @@ Internet-Draft              optional-security               January 2019
               1999)", 1999, <http://www.raid-
               symposium.org/raid99/PAPERS/Axelsson.pdf>.
 
+
+
+
+
+
+
+
+Trammell                Expires November 24, 2019               [Page 8]
+
+Internet-Draft              optional-security                   May 2019
+
+
    [ChromeHTTPS]
               Schechter, E., "["A milestone for Chrome security -
               marking HTTP as \"not secure\" (Google blog post)", nil]",
               July 2018, <https://www.blog.google/products/chrome/
               milestone-chrome-security-marking-http-not-secure/>.
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 8]
-
-Internet-Draft              optional-security               January 2019
-
 
    [Chung17]  Chung, T., van Rijswijk-Deij, R., Choffnes, D., Levin, D.,
               Maggs, B., Mislove, A., and C. Wilson, "Understanding the
@@ -492,19 +498,17 @@ Internet-Draft              optional-security               January 2019
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
               November 1987, <https://www.rfc-editor.org/info/rfc1035>.
 
+
+
+
+Trammell                Expires November 24, 2019               [Page 9]
+
+Internet-Draft              optional-security                   May 2019
+
+
    [RFC2385]  Heffernan, A., "Protection of BGP Sessions via the TCP MD5
               Signature Option", RFC 2385, DOI 10.17487/RFC2385, August
               1998, <https://www.rfc-editor.org/info/rfc2385>.
-
-
-
-
-
-
-Trammell                  Expires July 18, 2019                 [Page 9]
-
-Internet-Draft              optional-security               January 2019
-
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
               DOI 10.17487/RFC2818, May 2000,
@@ -549,25 +553,31 @@ Internet-Draft              optional-security               January 2019
               Specification", RFC 8205, DOI 10.17487/RFC8205, September
               2017, <https://www.rfc-editor.org/info/rfc8205>.
 
+
+
+
+
+Trammell                Expires November 24, 2019              [Page 10]
+
+Internet-Draft              optional-security                   May 2019
+
+
    [SecureContexts]
               van Kesteren, A., "Secure Contexts Everywhere", January
               2018, <https://blog.mozilla.org/security/2018/01/15/
               secure-contexts-everywhere/>.
 
-
-
-
-Trammell                  Expires July 18, 2019                [Page 10]
-
-Internet-Draft              optional-security               January 2019
-
+   [Snijders19]
+              Snijders, J., "Routing Security Update Q2 2019 (RIPE 78
+              presentation)", May 2019, <https://ripe78.ripe.net/
+              presentations/113-routing_security_ripe78_snijders.pdf>.
 
 Author's Address
 
    Brian Trammell
-   ETH Zurich
-   Universitatstrasse 6
-   8092 Zurich
+   Google
+   Gustav-Gull-Platz 1
+   8004 Zurich
    Switzerland
 
    Email: ietf@trammell.ch
@@ -603,14 +613,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-Trammell                  Expires July 18, 2019                [Page 11]
+Trammell                Expires November 24, 2019              [Page 11]

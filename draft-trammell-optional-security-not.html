@@ -78,13 +78,14 @@ table.header td, table#rfc\.headerblock td {
   line-height: 100%;
   margin: 10px 0 32px;
 }
-#rfc\.abstract+p, #rfc\.abstract p {
+#rfc\.abstract+p, #rfc\.abstract+p code, #rfc\.abstract+p samp, #rfc\.abstract+p tt {
   font-size: 20px;
   line-height: 28px;
 }
 
 samp, tt, code, pre, span.tt {
-  font: 13.5px Consolas, monospace;
+  font-size: 13.5px;
+  font-family: Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -293,12 +294,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.15.4 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.22.2 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Trammell, B." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-trammell-optional-security-not-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-01-14" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-05-23" />
   <meta name="dct.abstract" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
   <meta name="description" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
 
@@ -315,14 +316,14 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">ETH Zurich</td>
+<td class="right">Google</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
-<td class="right">January 14, 2019</td>
+<td class="right">May 23, 2019</td>
 </tr>
 <tr>
-<td class="left">Expires: July 18, 2019</td>
+<td class="left">Expires: November 24, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -339,7 +340,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 18, 2019.</p>
+<p>This Internet-Draft will expire on November 24, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -403,8 +404,8 @@ ul.toc li {
 </h1>
 <p id="rfc.section.3.1.p.1">The Border Gateway Protocol <a href="#RFC4271" class="xref">[RFC4271]</a> (BGP) is used to propagate interdomain routing information in the Internet. Its original design has no integrity protection at all, either on a hop-by-hop or on an end-to-end basis.  In the meantime, the TCP Authentication Option <a href="#RFC5925" class="xref">[RFC5925]</a> (and MD5 authentication <a href="#RFC2385" class="xref">[RFC2385]</a>, which it replaces) have been deployed to add hop-by-hop integrity protection.</p>
 <p id="rfc.section.3.1.p.2">End-to-end protection of the integrity of BGP announcements is protected by two complementary approaches. Route announcements in BGP updates protected by BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a> have the property that the every Autonomous System (AS) on the path of ASes listed in the UPDATE message has explicitly authorized the advertisement of the route to the subsequent AS in the path. RPKI <a href="#RFC6810" class="xref">[RFC6810]</a> protects prefixes, granting the right to advertise a prefix (i.e., be the first AS in the AS path) to a specific AS. RPKI serves as a trust root for BGPSEC, as well.</p>
-<p id="rfc.section.3.1.p.3">These approaches are not (yet) universally deployed. BGP route origin authentication approaches provide little benefit to individual deployers until it is almost universally deployed <a href="#Lychev13" class="xref">[Lychev13]</a>. RPKI route origin validation is similarly deployed in about 15% of the Internet core; two thirds of these networks only assign lower preference to non-validating announcements. This indicates significant caution with respect to RPKI mistakes <a href="#Gilad17" class="xref">[Gilad17]</a>. In both cases the lack of incentives for each independent deployment, including the false positive risk, greatly reduces the speed of incremental deployment and the chance of a successful transition <a href="#RFC8170" class="xref">[RFC8170]</a>.</p>
-<p id="rfc.section.3.1.p.4">In addition, the perception of security as a secondary concern for interdomain routing hinders deployment. A preference for secure routes over insecure ones is necessary to drive further deployment of routing security, but an internet service provider is unlikely to prefer a secure route over an insecure route when the secure route violates local preferences or results in a longer AS path <a href="#Lychev13" class="xref">[Lychev13]</a>.</p>
+<p id="rfc.section.3.1.p.3">These approaches are not yet universally deployed. BGP route origin authentication approaches provide little benefit to individual deployers until it is almost universally deployed <a href="#Lychev13" class="xref">[Lychev13]</a>. RPKI route origin validation is similarly deployed in about 15% of the Internet core; two thirds of these networks only assign lower preference to non-validating announcements. This indicates significant caution with respect to RPKI mistakes <a href="#Gilad17" class="xref">[Gilad17]</a>.</p>
+<p id="rfc.section.3.1.p.4">There are indications that this caution may be abating. At the RIPE 78 meeting in May 2019, Job Snijders reported that networks are beginning to validate route origins, especially on peering sessions <a href="#Snijders19" class="xref">[Snijders19]</a>. Concerted effort to improve tooling for RPKI signing and validation have reduced Q.  Deployment is acclerating, which Snijders attributes in part to fear of missing out: as individual networks deploy validation and find that the risk to availability is lower than feared, and their operators realize that the added security of rejecting RPKI invalid announcements can be used as a competetive advantage.  The actions of smaller networks can drive to decisions by larger ones: Snijders relates a story in which the current &#8220;snowball effect&#8221; began with a single small operator in the Netherlands announcing that they were rejecting invalids, and that nothing bad had happened.</p>
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#dnssec" id="dnssec">DNSSEC</a>
 </h1>
@@ -432,7 +433,7 @@ ul.toc li {
 <ul>
 <li>When natural incentives are not enough to overcome base-rate effects, external incentives (such as financial incentives) have been shown to be effective to motivate single deployment decisions. This essentially provides utility in the form of cash, offseting the negative cost of high Q.</li>
 <li>While &#8220;flag days&#8221; are difficult to arrange in the current Internet, coordinated action among multiple actors in a market (e.g. DNS resolvers or web browsers) can reduce the risk that temporary breakage due to the deployment of new security protocols is perceived as an error, at least reducing the false perception of Q.</li>
-<li>Efforts to automate configuration of security protocols, and thereby reduce the incidence of misconfiguration Q, have had a positive impact on deployability.</li>
+<li>Efforts to automate configuration of security protocols, and to improve tooling for managing secure operations, can reduce the incidence of misconfiguration Q, and have had a positive impact on deployability.</li>
 </ul>
 <p id="rfc.section.4.p.5">Coordinated action has demonstrated success in the case of HTTPS, so examining the outcome (or failure) of DNS Flag Day will provide more information about the likelihood of future such actions to move deployment of optional security features forward. It is difficult to see how insights on coordinated action in DNS and HTTPS can be applied to routing security, however, given the number of actors who would need to coordinate to make present routing security approaches widely useful. We note, however, that the MANRS effort (https://www.manrs.org) provides an umbrella activity under which any future coordination might take place.</p>
 <p id="rfc.section.4.p.6">We note that the cost of a deployment decision (at least for DNSSEC) could readily be extracted from the literature <a href="#Chung17" class="xref">[Chung17]</a>. Extrapolation from this work of a model for determining the total cost of full deployment of DNSSEC (or, indeed, of comprehensive routing security) is left as future work.</p>
@@ -549,6 +550,11 @@ ul.toc li {
 <td class="top">
 <a>van Kesteren, A.</a>, "<a href="https://blog.mozilla.org/security/2018/01/15/secure-contexts-everywhere/">Secure Contexts Everywhere</a>", January 2018.</td>
 </tr>
+<tr>
+<td class="reference"><b id="Snijders19">[Snijders19]</b></td>
+<td class="top">
+<a>Snijders, J.</a>, "<a href="https://ripe78.ripe.net/presentations/113-routing_security_ripe78_snijders.pdf">Routing Security Update Q2 2019 (RIPE 78 presentation)</a>", May 2019.</td>
+</tr>
 </tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
@@ -559,12 +565,12 @@ ul.toc li {
 		<span class="family-name">Trammell</span>
 	  </span>
 	</span>
-	<span class="org vcardline">ETH Zurich</span>
+	<span class="org vcardline">Google</span>
 	<span class="adr">
-	  <span class="vcardline">Universitatstrasse 6</span>
+	  <span class="vcardline">Gustav-Gull-Platz 1</span>
 
 	  <span class="vcardline">
-		<span class="locality">8092 Zurich</span>,  
+		<span class="locality">8004 Zurich</span>,  
 		<span class="region"></span>
 		<span class="code"></span>
 	  </span>
@@ -577,3 +583,4 @@ ul.toc li {
 
 </body>
 </html>
+
