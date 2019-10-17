@@ -4,8 +4,8 @@
 
 Network Working Group                                        B. Trammell
 Internet-Draft                                                    Google
-Intended status: Informational                              May 23, 2019
-Expires: November 24, 2019
+Intended status: Informational                          October 17, 2019
+Expires: April 19, 2020
 
 
                    Optional Security Is Not An Option
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 24, 2019.
+   This Internet-Draft will expire on April 19, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Trammell                Expires November 24, 2019               [Page 1]
+Trammell                 Expires April 19, 2020                 [Page 1]
 
-Internet-Draft              optional-security                   May 2019
+Internet-Draft              optional-security               October 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Trammell                Expires November 24, 2019               [Page 2]
+Trammell                 Expires April 19, 2020                 [Page 2]
 
-Internet-Draft              optional-security                   May 2019
+Internet-Draft              optional-security               October 2019
 
 
    2.  The extension has a true positive probability P: the probability
@@ -165,9 +165,9 @@ Internet-Draft              optional-security                   May 2019
 
 
 
-Trammell                Expires November 24, 2019               [Page 3]
+Trammell                 Expires April 19, 2020                 [Page 3]
 
-Internet-Draft              optional-security                   May 2019
+Internet-Draft              optional-security               October 2019
 
 
    [RFC2818], to see how the relationship of P and Q has affected their
@@ -221,13 +221,19 @@ Internet-Draft              optional-security                   May 2019
 
 
 
-Trammell                Expires November 24, 2019               [Page 4]
+Trammell                 Expires April 19, 2020                 [Page 4]
 
-Internet-Draft              optional-security                   May 2019
+Internet-Draft              optional-security               October 2019
 
 
    Netherlands announcing that they were rejecting invalids, and that
-   nothing bad had happened.
+   nothing bad had happened.  This uptake appears to continue: RIPE NCC
+   reported at the following RIPE 79 meeting in October 2019
+   [Trenaman19] that the RPKI is growing to be a fundamental part of the
+   Internet infrastructure, and that they are increasing budget and
+   investing in technical infrastructure and process improvements to
+   better support RPKI.  This investment and attention should have the
+   effect of reducing Q.
 
 3.2.  DNSSEC
 
@@ -261,26 +267,26 @@ Internet-Draft              optional-security                   May 2019
    DNSSEC deployment is hindered by other obstacles, as well.  Since the
    organic growth of DNS software predates even TCP/IP, even EDNS, the
    foundational extension upon which DNSSEC is built are not universally
-   deployed, which inflates Q.  The current DNS Flag Day effort (see
+   deployed, which inflates Q.  The recent DNS Flag Day effort (see
    https://dnsflagday.net) aims to remedy this by purposely breaking
    backward interoperability with servers that are not EDNS-capable, by
    coordinating action among DNS software developers and vendors.
 
    In addition, for the Web platform at least, DNSSEC is not percieved
    as having essential utility, given the deployment of TLS and the
+
+
+
+Trammell                 Expires April 19, 2020                 [Page 5]
+
+Internet-Draft              optional-security               October 2019
+
+
    assurances provided by the Web PKI (on which, see Section 3.3).  A
    connection intercepted due to a poisoned DNS cache would fail to
    authenticate unless the attacker also obtained a valid certificate
    from the name, rendering DNS interception less useful, in effect,
    reducing P.
-
-
-
-
-Trammell                Expires November 24, 2019               [Page 5]
-
-Internet-Draft              optional-security                   May 2019
-
 
 3.3.  HTTP over TLS
 
@@ -324,20 +330,20 @@ Internet-Draft              optional-security                   May 2019
    The ubiquitous deployment of HTTPS is not yet complete; however, all
    indications are that it will represent a rare eventual success story
    in the ubiquitous deployment of an optional security extention.  What
+
+
+
+Trammell                 Expires April 19, 2020                 [Page 6]
+
+Internet-Draft              optional-security               October 2019
+
+
    can we learn from this success?  We note that each endpoint deciding
    to use HTTPS saw an immediate benefit, which is an indicator of good
    chances of success for incremental deployment [RFC8170].  However,
    the acceleration of deployment since 2013 is the result of the
    coordinated effort of actors throughout the Web application and
    operations stack, unified around a particular event which acted as a
-
-
-
-Trammell                Expires November 24, 2019               [Page 6]
-
-Internet-Draft              optional-security                   May 2019
-
-
    call to arms.  While there are downsides to market consolidation, the
    relative consolidation of the browser market has made coordinated
    action to change user interfaces possible, as well as making it
@@ -379,6 +385,15 @@ Internet-Draft              optional-security                   May 2019
       is perceived as an error, at least reducing the false perception
       of Q.
 
+
+
+
+
+Trammell                 Expires April 19, 2020                 [Page 7]
+
+Internet-Draft              optional-security               October 2019
+
+
    o  Efforts to automate configuration of security protocols, and to
       improve tooling for managing secure operations, can reduce the
       incidence of misconfiguration Q, and have had a positive impact on
@@ -386,14 +401,6 @@ Internet-Draft              optional-security                   May 2019
 
    Coordinated action has demonstrated success in the case of HTTPS, so
    examining the outcome (or failure) of DNS Flag Day will provide more
-
-
-
-Trammell                Expires November 24, 2019               [Page 7]
-
-Internet-Draft              optional-security                   May 2019
-
-
    information about the likelihood of future such actions to move
    deployment of optional security features forward.  It is difficult to
    see how insights on coordinated action in DNS and HTTPS can be
@@ -432,23 +439,22 @@ Internet-Draft              optional-security                   May 2019
               (ACME)", draft-ietf-acme-acme-18 (work in progress),
               December 2018.
 
+
+
+
+
+
+
+Trammell                 Expires April 19, 2020                 [Page 8]
+
+Internet-Draft              optional-security               October 2019
+
+
    [Axelsson99]
               Axelsson, S., "The Base-Rate Fallacy and its Implications
               for the Difficulty of Intrusion Detection (in ACM CCS
               1999)", 1999, <http://www.raid-
               symposium.org/raid99/PAPERS/Axelsson.pdf>.
-
-
-
-
-
-
-
-
-Trammell                Expires November 24, 2019               [Page 8]
-
-Internet-Draft              optional-security                   May 2019
-
 
    [ChromeHTTPS]
               Schechter, E., "["A milestone for Chrome security -
@@ -487,6 +493,19 @@ Internet-Draft              optional-security                   May 2019
               <https://letsencrypt.org/2018/12/31/
               looking-forward-to-2019.html>.
 
+
+
+
+
+
+
+
+
+Trammell                 Expires April 19, 2020                 [Page 9]
+
+Internet-Draft              optional-security               October 2019
+
+
    [Lychev13]
               Lychev, R., Goldberg, S., and M. Schapira, "BGP Security
               in Partial Deployment - Is the Squeeze Worth the Juice?
@@ -497,14 +516,6 @@ Internet-Draft              optional-security                   May 2019
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
               November 1987, <https://www.rfc-editor.org/info/rfc1035>.
-
-
-
-
-Trammell                Expires November 24, 2019               [Page 9]
-
-Internet-Draft              optional-security                   May 2019
-
 
    [RFC2385]  Heffernan, A., "Protection of BGP Sessions via the TCP MD5
               Signature Option", RFC 2385, DOI 10.17487/RFC2385, August
@@ -538,6 +549,19 @@ Internet-Draft              optional-security                   May 2019
               DOI 10.17487/RFC6810, January 2013,
               <https://www.rfc-editor.org/info/rfc6810>.
 
+
+
+
+
+
+
+
+
+Trammell                 Expires April 19, 2020                [Page 10]
+
+Internet-Draft              optional-security               October 2019
+
+
    [RFC7624]  Barnes, R., Schneier, B., Jennings, C., Hardie, T.,
               Trammell, B., Huitema, C., and D. Borkmann,
               "Confidentiality in the Face of Pervasive Surveillance: A
@@ -553,15 +577,6 @@ Internet-Draft              optional-security                   May 2019
               Specification", RFC 8205, DOI 10.17487/RFC8205, September
               2017, <https://www.rfc-editor.org/info/rfc8205>.
 
-
-
-
-
-Trammell                Expires November 24, 2019              [Page 10]
-
-Internet-Draft              optional-security                   May 2019
-
-
    [SecureContexts]
               van Kesteren, A., "Secure Contexts Everywhere", January
               2018, <https://blog.mozilla.org/security/2018/01/15/
@@ -571,6 +586,11 @@ Internet-Draft              optional-security                   May 2019
               Snijders, J., "Routing Security Update Q2 2019 (RIPE 78
               presentation)", May 2019, <https://ripe78.ripe.net/
               presentations/113-routing_security_ripe78_snijders.pdf>.
+
+   [Trenaman19]
+              Trenaman, N., "RPKI Resilience - How Trustworthy is our
+              Trust Anchor?", October 2019, <https://ripe79.ripe.net/
+              presentations/96-RPKI-Resilience.pdf>.
 
 Author's Address
 
@@ -593,24 +613,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Trammell                Expires November 24, 2019              [Page 11]
+Trammell                 Expires April 19, 2020                [Page 11]

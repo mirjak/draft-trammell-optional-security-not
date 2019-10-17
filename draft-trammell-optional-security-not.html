@@ -277,8 +277,8 @@ ul.toc li {
   .github-fork-ribbon-wrapper {
     position: fixed;
   }
-  /*]]>*/</style>
-  <meta name="viewport" content="initial-scale=1.0">
+/*]]>*/</style>
+<meta name="viewport" content="initial-scale=1.0">
 
 
   <link href="#rfc.toc" rel="Contents">
@@ -294,12 +294,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.22.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.22.1 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Trammell, B." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-trammell-optional-security-not-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-05-23" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-10-17" />
   <meta name="dct.abstract" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
   <meta name="description" content="This document explores the common properties of optional security protocols and extensions, and notes that due to the base-rate fallacy and general issues with coordinated deployment of protocols under uncertain incentives, optional security protocols have proven difficult to deploy in practice. This document defines the problem, examines efforts to add optional security for routing, naming, and end-to-end transport, and extracts guidelines for future efforts to deploy optional security protocols based on successes and failures to date." />
 
@@ -320,10 +320,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
-<td class="right">May 23, 2019</td>
+<td class="right">October 17, 2019</td>
 </tr>
 <tr>
-<td class="left">Expires: November 24, 2019</td>
+<td class="left">Expires: April 19, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -340,7 +340,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 24, 2019.</p>
+<p>This Internet-Draft will expire on April 19, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -405,14 +405,14 @@ ul.toc li {
 <p id="rfc.section.3.1.p.1">The Border Gateway Protocol <a href="#RFC4271" class="xref">[RFC4271]</a> (BGP) is used to propagate interdomain routing information in the Internet. Its original design has no integrity protection at all, either on a hop-by-hop or on an end-to-end basis.  In the meantime, the TCP Authentication Option <a href="#RFC5925" class="xref">[RFC5925]</a> (and MD5 authentication <a href="#RFC2385" class="xref">[RFC2385]</a>, which it replaces) have been deployed to add hop-by-hop integrity protection.</p>
 <p id="rfc.section.3.1.p.2">End-to-end protection of the integrity of BGP announcements is protected by two complementary approaches. Route announcements in BGP updates protected by BGPSEC <a href="#RFC8205" class="xref">[RFC8205]</a> have the property that the every Autonomous System (AS) on the path of ASes listed in the UPDATE message has explicitly authorized the advertisement of the route to the subsequent AS in the path. RPKI <a href="#RFC6810" class="xref">[RFC6810]</a> protects prefixes, granting the right to advertise a prefix (i.e., be the first AS in the AS path) to a specific AS. RPKI serves as a trust root for BGPSEC, as well.</p>
 <p id="rfc.section.3.1.p.3">These approaches are not yet universally deployed. BGP route origin authentication approaches provide little benefit to individual deployers until it is almost universally deployed <a href="#Lychev13" class="xref">[Lychev13]</a>. RPKI route origin validation is similarly deployed in about 15% of the Internet core; two thirds of these networks only assign lower preference to non-validating announcements. This indicates significant caution with respect to RPKI mistakes <a href="#Gilad17" class="xref">[Gilad17]</a>.</p>
-<p id="rfc.section.3.1.p.4">There are indications that this caution may be abating. At the RIPE 78 meeting in May 2019, Job Snijders reported that networks are beginning to validate route origins, especially on peering sessions <a href="#Snijders19" class="xref">[Snijders19]</a>. Concerted effort to improve tooling for RPKI signing and validation have reduced Q.  Deployment is acclerating, which Snijders attributes in part to fear of missing out: as individual networks deploy validation and find that the risk to availability is lower than feared, and their operators realize that the added security of rejecting RPKI invalid announcements can be used as a competetive advantage.  The actions of smaller networks can drive to decisions by larger ones: Snijders relates a story in which the current &#8220;snowball effect&#8221; began with a single small operator in the Netherlands announcing that they were rejecting invalids, and that nothing bad had happened.</p>
+<p id="rfc.section.3.1.p.4">There are indications that this caution may be abating. At the RIPE 78 meeting in May 2019, Job Snijders reported that networks are beginning to validate route origins, especially on peering sessions <a href="#Snijders19" class="xref">[Snijders19]</a>. Concerted effort to improve tooling for RPKI signing and validation have reduced Q.  Deployment is acclerating, which Snijders attributes in part to fear of missing out: as individual networks deploy validation and find that the risk to availability is lower than feared, and their operators realize that the added security of rejecting RPKI invalid announcements can be used as a competetive advantage. The actions of smaller networks can drive to decisions by larger ones: Snijders relates a story in which the current &#8220;snowball effect&#8221; began with a single small operator in the Netherlands announcing that they were rejecting invalids, and that nothing bad had happened. This uptake appears to continue: RIPE NCC reported at the following RIPE 79 meeting in October 2019 <a href="#Trenaman19" class="xref">[Trenaman19]</a> that the RPKI is growing to be a fundamental part of the Internet infrastructure, and that they are increasing budget and investing in  technical infrastructure and process improvements to better support RPKI. This investment and attention should have the effect of reducing Q.</p>
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#dnssec" id="dnssec">DNSSEC</a>
 </h1>
 <p id="rfc.section.3.2.p.1">The Domain Name System (DNS) <a href="#RFC1035" class="xref">[RFC1035]</a> provides a distributed protocol for the mapping of Internet domain names to information about those names. As originally specified, an answer to a DNS query was considered authoritative if it came from an authoritative server, which does not allow for authentication of information in the DNS. DNS Security <a href="#RFC4033" class="xref">[RFC4033]</a> remedies this through an extension, allowing DNS resource records to be signed using keys linked to zones, also distributed via DNS. A name can be authenticated if every level of the DNS hierarchy from the root up to the zone containing the name is signed.</p>
 <p id="rfc.section.3.2.p.2">The root zone of the DNS has been signed since 2010. As of 2016, 89% of TLD zones were also signed. However, the deployment status of DNSSEC for second-level domains (SLDs) varies wildly from region to region and is generally poor: only about 1% of .com, .net. and .org SLDs were properly signed <a href="#DNSSEC-DEPLOYMENT" class="xref">[DNSSEC-DEPLOYMENT]</a>. Chung et al found recently that second-level domain adoption was linked incentives for deployment: TLDs which provided direct financial incentives to SLDs for having correctly signed DNS zones tend to have much higher deployment, though these incentives must be carefully designed to ensure that they measure correct deployment, as opposed to more easily-gamed indirect metrics <a href="#Chung17" class="xref">[Chung17]</a>.</p>
 <p id="rfc.section.3.2.p.3">However, the base-rate effect tends to reduce the use of DNSSEC validating resolvers, which remains below 15% of Internet clients <a href="#DNSSEC-DEPLOYMENT" class="xref">[DNSSEC-DEPLOYMENT]</a>.</p>
-<p id="rfc.section.3.2.p.4">DNSSEC deployment is hindered by other obstacles, as well. Since the organic growth of DNS software predates even TCP/IP, even EDNS, the foundational extension upon which DNSSEC is built are not universally deployed, which inflates Q. The current DNS Flag Day effort (see https://dnsflagday.net) aims to remedy this by purposely breaking backward interoperability with servers that are not EDNS-capable, by coordinating action among DNS software developers and vendors.</p>
+<p id="rfc.section.3.2.p.4">DNSSEC deployment is hindered by other obstacles, as well. Since the organic growth of DNS software predates even TCP/IP, even EDNS, the foundational extension upon which DNSSEC is built are not universally deployed, which inflates Q. The recent DNS Flag Day effort (see https://dnsflagday.net) aims to remedy this by purposely breaking backward interoperability with servers that are not EDNS-capable, by coordinating action among DNS software developers and vendors.</p>
 <p id="rfc.section.3.2.p.5">In addition, for the Web platform at least, DNSSEC is not percieved as having essential utility, given the deployment of TLS and the assurances provided by the Web PKI (on which, see <a href="#http-over-tls" class="xref">Section 3.3</a>). A connection intercepted due to a poisoned DNS cache would fail to authenticate unless the attacker also obtained a valid certificate from the name, rendering DNS interception less useful, in effect, reducing P.</p>
 <h1 id="rfc.section.3.3">
 <a href="#rfc.section.3.3">3.3.</a> <a href="#http-over-tls" id="http-over-tls">HTTP over TLS</a>
@@ -554,6 +554,11 @@ ul.toc li {
 <td class="reference"><b id="Snijders19">[Snijders19]</b></td>
 <td class="top">
 <a>Snijders, J.</a>, "<a href="https://ripe78.ripe.net/presentations/113-routing_security_ripe78_snijders.pdf">Routing Security Update Q2 2019 (RIPE 78 presentation)</a>", May 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="Trenaman19">[Trenaman19]</b></td>
+<td class="top">
+<a>Trenaman, N.</a>, "<a href="https://ripe79.ripe.net/presentations/96-RPKI-Resilience.pdf">RPKI Resilience - How Trustworthy is our Trust Anchor?</a>", October 2019.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
