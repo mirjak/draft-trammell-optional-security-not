@@ -125,13 +125,22 @@ informative:
 
 --- abstract
 
-This document explores the common properties of optional security protocols and
-extensions, and notes that due to the base-rate fallacy and general issues with
+This document explores the common properties of security protocols and
+extensions in order to provide recommendation for future efforts on
+developing and deplying securtiy protocols.
+
+First of all, it must be observed that due to the base-rate fallacy and general issues with
 coordinated deployment of protocols under uncertain incentives, optional
-security protocols have proven difficult to deploy in practice. This document
-defines the problem, examines efforts to add optional security for routing,
+security protocols or extensiosn have proven difficult to deploy in practice.
+Further, it should be noted that secure transport protocols often consist of
+three logically distinct components: transport, control (handshake), and record protection.
+This document proposes that if these three functions can be logical separated,
+encryption and authentication can be provided more flexibly on each layer of the stack,
+instead on re-inventing these functions separately for each protocol.
+
+This document defines the problem, examines efforts to add optional security for routing,
 naming, and end-to-end transport, and extracts guidelines for future efforts to
-deploy optional security protocols based on successes and failures to date.
+deploy security protocols based on successes and failures to date.
 
 --- middle
 
@@ -143,8 +152,9 @@ operators, and users, on computers that were incapable of using cryptographic
 protection of confidentiality, integrity, and authenticity for those protocols,
 in a legal environment where the distribution of cryptographic technology was
 largely restricted by licensing and/or prohibited by law. The result has been a
-protocol stack where security properties have been added to core protocols using
-those protocols' extension mechanisms.
+protocol stack where security properties have been either added in retrospect
+to core protocols using those protocols' extension mechanisms or implemented
+in a separate layer.
 
 As extension mechanisms are by design optional features of a protocol, this
 has led to a situation where security is optional up and down the protocol
@@ -152,6 +162,19 @@ stack. Protocols with optional security have proven to be difficult to deploy.
 This document describes and examines this problem, and provides guidance for
 future evolution of the protocol, based on current work in network measurement
 and usable security research.
+
+{{I-D.kuehlewind-taps-crypto-sep}} further analyses existing security protocol
+and notes that they often consist of three logically distinct components: transport,
+control (handshake), and record protection. Separating these functions can provide
+higher flexibility for new protocols to use and implement encryption and
+authentication. Even if security is used and required on different layers of the 
+stack, to protect header information or functions of that protocol, only
+one handshake between the same two entities would be nessecary. Further,
+the transport used for the handshake does not need to be same as used to the
+actual data exchange.  Increasing flexibility here simplifies the introduction
+of security functions where needed and actually provides security as a function
+compontent to each layer, rather than separating it out into the separate layer
+which has the risk to be optionally blocked or disabled.
 
 # Problem statement
 
